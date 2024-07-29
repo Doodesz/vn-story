@@ -6,7 +6,7 @@ public class MapManager : MonoBehaviour
 {
     public float leftBoundary, rightBoundary;
 
-    // Start is called before the first frame update
+    /*// Start is called before the first frame update
     void Start()
     {
         
@@ -16,5 +16,5 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         
-    }
+    }*/
 }

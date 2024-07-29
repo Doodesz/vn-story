@@ -26,11 +26,6 @@ public class PlayerController : MonoBehaviour
         {
             Move(horizontalInput);            
         }
-
-        if (dialogueManager.isInDialogue && Input.GetKeyDown(KeyCode.Space))
-        {
-            dialogueManager.DisplayNextDialogueLine();
-        }
     }
 
     private void Move(float input)
@@ -56,11 +51,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "NPC")
+        if (collision.gameObject.name == "NPC" && !dialogueManager.isInDialogue)
         {
-            collision.GetComponent<DialogueTrigger>().TriggerDialogue();
+            if (!collision.GetComponent<DialogueTrigger>().triggerOnTriggerenter)
+                if (Input.GetKeyDown(KeyCode.Space))
+                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
+            else if (collision.GetComponent<DialogueTrigger>().triggerOnTriggerenter)
+                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
         }
     }
 }

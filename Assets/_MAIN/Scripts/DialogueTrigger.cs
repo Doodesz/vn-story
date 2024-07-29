@@ -25,20 +25,12 @@ public class Dialogue
 
 public class DialogueTrigger : MonoBehaviour
 {
-    [SerializeField] private bool triggerOnTriggerenter;
+    public bool triggerOnTriggerenter;
 
     public Dialogue dialogue;
 
     public void TriggerDialogue()
     {
         DialogueManager.Instance.StartDialogue(dialogue);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player" && triggerOnTriggerenter)
-        {
-            TriggerDialogue();
-        }
     }
 }
