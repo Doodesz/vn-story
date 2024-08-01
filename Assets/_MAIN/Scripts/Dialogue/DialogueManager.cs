@@ -4,8 +4,9 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using System.ComponentModel;
+using UnityEngine.SceneManagement;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, IDataPersistence
 {
     public static DialogueManager Instance;
 
@@ -19,16 +20,18 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
     public GameObject dialogueItemPrefab;
     public GameObject dialogueLogContainer;
+    public PlayerController playerController;
 
     [Header("Current State")]
     public bool isInDialogue = false;
     public bool isTyping = false;
+    [SerializeField] private int currentLineIndex = 0;
+    [SerializeField] private GameObject npcBeingInteracted;
 
     [Header("Mod")]
     public float typingSpeed = 0.2f;
     
     private Queue<DialogueLine> lines;
-    private DialogueLine[] dialogueLineArr;
 
     private void Awake()
     {
@@ -46,10 +49,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, GameObject gameObject, int startLine = 0)
     {
         isInDialogue = true;
         dialogueScreen.SetActive(true);
+        npcBeingInteracted = gameObject;
+        PlayerController.Instance.playerInControl = false;
 
         animator.Play("show");
 
@@ -60,7 +65,10 @@ public class DialogueManager : MonoBehaviour
             lines.Enqueue(dialogueLine);
         }
 
-        DisplayNextDialogueLine();
+        for (int i=0; i<startLine; i++)
+            DisplayNextDialogueLine();
+
+        currentLineIndex = startLine;
     }
 
     public void DisplayNextDialogueLine()
@@ -72,6 +80,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         DialogueLine currentLine = lines.Peek();
+
+        currentLineIndex++;
 
         characterIconLeft.sprite = currentLine.data.leftIcon;
         characterIconRight.sprite = currentLine.data.rightIcon;
@@ -102,6 +112,9 @@ public class DialogueManager : MonoBehaviour
         isInDialogue = false;
         animator.Play("hide");
         DeactivateDialogueScreen();
+        currentLineIndex = 0;
+        npcBeingInteracted = null;
+        PlayerController.Instance.playerInControl = true;
     }
 
     IEnumerator DeactivateDialogueScreen()
@@ -128,5 +141,37 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(dialogueLogContainer.transform.GetChild(i).gameObject);
         }
+    }
+
+    public void SaveData(GameData data)
+    {
+        if (npcBeingInteracted == null)
+        {
+            data.lastDialogueLineIndex = 0;
+            data.npcBeingInteracted = null;
+            data.isInDialogue = false;
+        }        
+        else
+        {
+            data.npcBeingInteracted = this.npcBeingInteracted.name;
+            data.lastDialogueLineIndex = this.currentLineIndex;
+            data.isInDialogue = true;
+        }
+    }
+
+    public void LoadData(GameData data)
+    {
+        this.currentLineIndex = data.lastDialogueLineIndex;
+        this.isInDialogue = data.isInDialogue;
+        this.npcBeingInteracted = GameObject.Find(data.npcBeingInteracted);
+
+        if (isInDialogue) 
+            LoadLastConversation();
+    }
+
+    public void LoadLastConversation()
+    {
+        npcBeingInteracted.GetComponent<DialogueTrigger>().TriggerDialogue(currentLineIndex);
+        if (npcBeingInteracted == null) Debug.Log("Referenced npcBeingInteracted GameObject not found");
     }
 }

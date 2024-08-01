@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDataPersistence
 {
-    private float horizontalInput;
+    [SerializeField] private float horizontalInput;
     [SerializeField] private float moveSpeed = 1f;
+    public bool playerInControl = true;
     private DialogueManager dialogueManager;
+    public static PlayerController Instance;
 
     // Start is called before the first frame update
     void Start()
     {
         dialogueManager = GameObject.Find("Game Manager").GetComponent<DialogueManager>();
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -22,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!dialogueManager.isInDialogue)
+        if (playerInControl)
         {
             Move(horizontalInput);            
         }
@@ -31,10 +34,10 @@ public class PlayerController : MonoBehaviour
     private void Move(float input)
     {
         transform.Translate(new Vector3(input, 0f, 0f) * moveSpeed * Time.deltaTime);
-        FixPlayerPosition();
+        LimitPlayerPosition();
     }
 
-    private void FixPlayerPosition()
+    private void LimitPlayerPosition()
     {
         MapManager mapManager = GameObject.Find("Map Manager").GetComponent<MapManager>();
         float leftBoundary = mapManager.leftBoundary;
@@ -53,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "NPC" && !dialogueManager.isInDialogue)
+        if (collision.gameObject.name == "NPC" && playerInControl)
         {
             if (!collision.GetComponent<DialogueTrigger>().triggerOnTriggerenter)
                 if (Input.GetKeyDown(KeyCode.Space))
@@ -61,5 +64,17 @@ public class PlayerController : MonoBehaviour
             else if (collision.GetComponent<DialogueTrigger>().triggerOnTriggerenter)
                     collision.GetComponent<DialogueTrigger>().TriggerDialogue();
         }
+    }
+
+    public void SaveData(GameData data)
+    {
+        data.playerPosition = this.gameObject.transform.position;
+        data.playerInControl = this.playerInControl;
+    }
+
+    public void LoadData(GameData data) 
+    {
+        this.gameObject.transform.position = data.playerPosition;
+        this.playerInControl = data.playerInControl;
     }
 }
