@@ -51,10 +51,17 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     public void StartDialogue(Dialogue dialogue, GameObject gameObject, int startLine = 0)
     {
+        // If last scene and loaded scene mismatch on last save during a dialogue
+        if (playerController == null)
+        {
+            Debug.LogWarning("PlayerController.Instance not found. May be a mismatch of scene in last conversation");
+            return;
+        }
+
         isInDialogue = true;
         dialogueScreen.SetActive(true);
         npcBeingInteracted = gameObject;
-        PlayerController.Instance.playerInControl = false;
+        playerController.playerInControl = false;
 
         animator.Play("show");
 
@@ -84,7 +91,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         currentLineIndex++;
 
         characterIconLeft.sprite = currentLine.data.leftIcon;
-        characterIconRight.sprite = currentLine.data.rightIcon;
+        // characterIconRight.sprite = currentLine.data.rightIcon;
         characterName.text = currentLine.data.name;
 
         StopAllCoroutines();
@@ -114,7 +121,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         DeactivateDialogueScreen();
         currentLineIndex = 0;
         npcBeingInteracted = null;
-        PlayerController.Instance.playerInControl = true;
+        playerController.playerInControl = true;
         DataPersistenceManager.Instance.SaveGame(); // Fix bug + autosave
     }
 

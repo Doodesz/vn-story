@@ -7,7 +7,7 @@ public class DialogueData
 {
     public string name;
     public Sprite leftIcon;
-    public Sprite rightIcon;
+    // public Sprite rightIcon;
 }
 
 [System.Serializable]
