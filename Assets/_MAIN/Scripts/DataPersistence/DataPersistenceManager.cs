@@ -53,7 +53,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void OnSceneUnloaded(Scene scene)
     {
-        // SaveGame();
+        /*if (SceneManager.GetActiveScene().name != "MainMenu")
+            SaveGame();*/
     }
 
     public void NewGame() 
@@ -108,7 +109,8 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit() 
     {
-        // SaveGame();
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+            SaveGame();
     }
 
     private List<IDataPersistence> FindAllDataPersistenceObjects() 
@@ -122,5 +124,10 @@ public class DataPersistenceManager : MonoBehaviour
     public bool HasGameData() 
     {
         return gameData != null;
+    }
+
+    public GameData GetGameData()
+    {
+        return gameData;
     }
 }

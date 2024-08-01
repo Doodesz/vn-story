@@ -1,32 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private float horizontalInput;
     [SerializeField] private float moveSpeed = 1f;
     public bool playerInControl = true;
-    private DialogueManager dialogueManager;
     public static PlayerController Instance;
 
     // Start is called before the first frame update
     void Start()
     {
-        dialogueManager = GameObject.Find("Game Manager").GetComponent<DialogueManager>();
         Instance = this;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        horizontalInput = Input.GetAxis("Horizontal");
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            playerInControl = false;
+
+        if (GameManager.Instance.playerChangingMap && SceneManager.GetActiveScene().isLoaded)
+        {
+            RepositionPlayerToDoor(GameManager.Instance.doorDestination);
+            DataPersistenceManager.Instance.SaveGame(); // Fix bug +fitur auto save anjay:D
+        }
     }
 
     private void FixedUpdate()
     {
         if (playerInControl)
         {
+            horizontalInput = Input.GetAxis("Horizontal");
             Move(horizontalInput);            
         }
     }
@@ -39,7 +42,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void LimitPlayerPosition()
     {
-        MapManager mapManager = GameObject.Find("Map Manager").GetComponent<MapManager>();
+        MapManager mapManager = MapManager.Instance;
         float leftBoundary = mapManager.leftBoundary;
         float rightBoundary = mapManager.rightBoundary;
         float playerPosX = transform.position.x;
@@ -56,25 +59,55 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "NPC" && playerInControl)
+        InteractableType interactableType = collision.GetComponent<Interactable>().thisInteractableType;
+        Interactable interactable = collision.GetComponent<Interactable>();
+
+        if (collision.gameObject.CompareTag("Interactable") && playerInControl)
         {
-            if (!collision.GetComponent<DialogueTrigger>().triggerOnTriggerenter)
+            // If trigger object is a dialogue type
+            if (interactableType == InteractableType.Dialogue)
+                if (interactable.triggerOnTriggerEnter)
+                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
+            
+                else if (Input.GetKeyDown(KeyCode.Space))
+                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
+
+            // Move player to x area
+            if (interactableType == InteractableType.SwitchScenes)
                 if (Input.GetKeyDown(KeyCode.Space))
-                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
-            else if (collision.GetComponent<DialogueTrigger>().triggerOnTriggerenter)
-                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
+                {
+                    StopAllCoroutines();
+                    
+                    interactable.SwitchScene();
+                }
         }
+    }
+
+    private void RepositionPlayerToDoor(string doorDestination)
+    {
+        Vector3 doorPos = GameObject.Find(doorDestination).transform.position;
+
+        transform.position = new Vector2(doorPos.x, transform.position.y);
+        GameManager.Instance.playerChangingMap = false;
+        GameManager.Instance.UpdateDoorDestinationPos(doorPos);
     }
 
     public void SaveData(GameData data)
     {
-        data.playerPosition = this.gameObject.transform.position;
-        data.playerInControl = this.playerInControl;
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            data.playerPosition = this.gameObject.transform.position;
+            data.playerInControl = this.playerInControl;
+        }
     }
 
     public void LoadData(GameData data) 
     {
-        this.gameObject.transform.position = data.playerPosition;
-        this.playerInControl = data.playerInControl;
+        if (SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            if (!GameManager.Instance.playerChangingMap)
+                this.gameObject.transform.position = data.playerPosition;
+            this.playerInControl = data.playerInControl;
+        }
     }
 }

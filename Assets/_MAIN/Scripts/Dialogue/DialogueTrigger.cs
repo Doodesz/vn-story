@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
+
 public class DialogueData
 {
     public string name;
@@ -23,10 +24,9 @@ public class Dialogue
     public List<DialogueLine> dialogueLines = new List<DialogueLine>();
 }
 
+[RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
-    public bool triggerOnTriggerenter;
-
     public Dialogue dialogue;
 
     public void TriggerDialogue(int startLine = 0)

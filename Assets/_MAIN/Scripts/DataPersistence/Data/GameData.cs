@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GameData
@@ -11,6 +12,8 @@ public class GameData
     public bool isInDialogue;
     public int lastDialogueLineIndex;
     public string npcBeingInteracted;
+    public string sceneName;
+    public string currentArea;
 
     // public SerializableDictionary<string, bool> coinsCollected;
     // the values defined in this constructor will be the default values
@@ -22,6 +25,8 @@ public class GameData
         playerPosition = Vector3.zero;
         npcBeingInteracted = null;
         isInDialogue = false;
+        sceneName = "Sample Scene";
+        currentArea = "0";
 
 
         // coinsCollected = new SerializableDictionary<string, bool>();

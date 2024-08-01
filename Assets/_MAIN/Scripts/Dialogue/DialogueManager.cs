@@ -115,6 +115,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         currentLineIndex = 0;
         npcBeingInteracted = null;
         PlayerController.Instance.playerInControl = true;
+        DataPersistenceManager.Instance.SaveGame(); // Fix bug + autosave
     }
 
     IEnumerator DeactivateDialogueScreen()
