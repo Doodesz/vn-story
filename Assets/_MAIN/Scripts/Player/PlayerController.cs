@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
 
+        movingCamTimer -= Time.deltaTime;
+
         if (playerInControl)
         {
             // When receiving keyboard input, override isMovingToCursor
@@ -82,7 +84,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
 
         LimitPlayerPosition();
-        movingCamTimer -= Time.deltaTime;
     }
 
     private void Move(float input)
@@ -153,27 +154,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        InteractableType interactableType = collision.GetComponent<Interactable>().thisInteractableType;
-        Interactable interactable = collision.GetComponent<Interactable>();
+        Interactable currentInteractable = collision.GetComponent<Interactable>();
 
         if (collision.gameObject.CompareTag("Interactable") && playerInControl)
         {
-            // If trigger object is a dialogue type
-            if (interactableType == InteractableType.Dialogue)
-                if (interactable.triggerOnTriggerEnter)
-                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
-            
-                else if (Input.GetKeyDown(KeyCode.Space))
-                    collision.GetComponent<DialogueTrigger>().TriggerDialogue();
-
-            // Move player to x area
-            if (interactableType == InteractableType.SwitchScenes)
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    StopAllCoroutines();
-                    
-                    interactable.SwitchScene();
-                }
+            if (currentInteractable.triggerOnTriggerEnter)
+            {
+                currentInteractable.TriggerInteraction();
+                isMovingToCursor = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.Space))
+            {
+                currentInteractable.TriggerInteraction();
+                isMovingToCursor = false;
+            }
         }
     }
 

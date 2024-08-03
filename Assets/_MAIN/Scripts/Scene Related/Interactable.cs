@@ -13,7 +13,25 @@ public class Interactable : MonoBehaviour
     public string areaDestination;
     public bool triggerOnTriggerEnter = false;
 
-    public void SwitchScene()
+    public void TriggerInteraction()
+    {
+        if (thisInteractableType == InteractableType.Dialogue)
+        {
+            GetComponent<DialogueTrigger>().TriggerDialogue();
+        }
+
+        else if (thisInteractableType == InteractableType.SwitchScenes)
+        {
+            SwitchScene();
+        }
+
+        else if (thisInteractableType == InteractableType.ChangeArea)
+        {
+            // ChangeArea();
+        }
+    }
+
+    private void SwitchScene()
     {
         if (thisInteractableType == InteractableType.SwitchScenes)
         {

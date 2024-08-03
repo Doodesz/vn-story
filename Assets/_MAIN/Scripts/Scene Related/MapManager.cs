@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour, IDataPersistence
     public float leftBoundary;
     public float rightBoundary;
     public string currentArea;
-    [SerializeField] private string sceneName;
+    private string sceneName;
 
     [Header("Assign Area GameObject")]
     [SerializeField] private List<GameObject> areaGameObjects;
