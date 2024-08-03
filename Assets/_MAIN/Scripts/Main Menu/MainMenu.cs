@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     [Header("Menu Buttons")]
     [SerializeField] private Button newGameButton;
     [SerializeField] private Button continueGameButton;
+    [SerializeField] private string newGameScene;
 
     private void Start() 
     {
@@ -25,7 +26,7 @@ public class MainMenu : MonoBehaviour
         DataPersistenceManager.Instance.NewGame();
         // load the gameplay scene - which will in turn save the game because of
         // OnSceneUnloaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync(newGameScene);
     }
 
     public void OnContinueGameClicked() 

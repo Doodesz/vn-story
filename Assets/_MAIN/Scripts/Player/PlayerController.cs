@@ -1,13 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] private float horizontalInput;
+    [Header("Assign GameObjects")]
+    public GameObject camVocalPoint;
+
+    [Header("Parameters")]
     [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float camLookAhead;
+
+    [Header("Camera Parameters")]
+    [SerializeField] private float idleCamLerpValue;
+    [SerializeField] private float movingCamLerpValue;
+    [SerializeField] private float movingCamTimer;
+    [SerializeField] private float movingCamTimeout = 5f;
+
+    [Header("Current State")]
     public bool playerInControl = true;
+    [SerializeField] float horizontalInput;
+    [SerializeField] bool isMovingToCursor = false;
+    [SerializeField] Vector3 moveDestination = Vector3.zero;
+
     public static PlayerController Instance;
 
     // Start is called before the first frame update
@@ -25,19 +42,85 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
+        Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
+
         if (playerInControl)
         {
+            // When receiving keyboard input, override isMovingToCursor
             horizontalInput = Input.GetAxis("Horizontal");
-            Move(horizontalInput);            
+            if (horizontalInput != 0f)
+            {
+                Move(horizontalInput);
+                isMovingToCursor = false;
+            }
+            
+            // Move to clicked position
+            if (Input.GetMouseButtonDown(0))
+            {
+                isMovingToCursor = true;
+                moveDestination = worldPosition;
+            }
         }
+
+        if (isMovingToCursor)
+        {
+            MoveToCursor(moveDestination);
+        }
+
+        // Resets cam position slowly when idle
+        if (!isMovingToCursor)
+        {
+            camVocalPoint.transform.localPosition = 
+                Vector3.Lerp(camVocalPointPos, Vector3.zero, idleCamLerpValue);
+
+            if (movingCamTimer <= 0)
+                camVocalPoint.transform.localPosition = Vector3.zero;
+        }
+
+        LimitPlayerPosition();
+        movingCamTimer -= Time.deltaTime;
     }
 
     private void Move(float input)
     {
+        movingCamTimer = movingCamTimeout;
+
         transform.Translate(new Vector3(input, 0f, 0f) * moveSpeed * Time.deltaTime);
-        LimitPlayerPosition();
+    }
+
+    private void MoveToCursor(Vector3 destination)
+    {
+        Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
+        Vector3 camDestination = new Vector3(camLookAhead, 0, 0);
+        movingCamTimer = movingCamTimeout;
+
+        // If clicked postion on the left side of the player, move to the left
+        if (destination.x < gameObject.transform.localPosition.x)
+        {
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            camVocalPoint.transform.localPosition = 
+                Vector3.Lerp(camVocalPointPos, -camDestination, movingCamLerpValue);
+
+            // If exceeding the targeted position, cancels movement, this fixes bug
+            if (destination.x > gameObject.transform.localPosition.x)
+                isMovingToCursor = false;
+        }
+
+        // If opposite
+        else if (destination.x > gameObject.transform.localPosition.x)
+        {
+            transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
+            camVocalPoint.transform.localPosition = 
+                Vector3.Lerp(camVocalPointPos, camDestination, movingCamLerpValue);
+            
+            // If exceeding the targeted position, cancels movement
+            if (destination.x < gameObject.transform.localPosition.x)
+                isMovingToCursor = false;
+        }
     }
 
     private void LimitPlayerPosition()
@@ -50,11 +133,22 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (playerPosX > mapManager.rightBoundary)
         {
             transform.position = new Vector2(rightBoundary, transform.position.y);
+            isMovingToCursor = false;
         }
         else if (playerPosX < mapManager.leftBoundary)
         {
             transform.position = new Vector2(leftBoundary, transform.position.y);
+            isMovingToCursor = false;
         }
+    }
+
+    private void RepositionPlayerToDoor(string doorDestination)
+    {
+        Vector3 doorPos = GameObject.Find(doorDestination).transform.position;
+
+        transform.position = new Vector2(doorPos.x, transform.position.y);
+        GameManager.Instance.playerChangingMap = false;
+        GameManager.Instance.UpdateDoorDestinationPos(doorPos);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -81,15 +175,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     interactable.SwitchScene();
                 }
         }
-    }
-
-    private void RepositionPlayerToDoor(string doorDestination)
-    {
-        Vector3 doorPos = GameObject.Find(doorDestination).transform.position;
-
-        transform.position = new Vector2(doorPos.x, transform.position.y);
-        GameManager.Instance.playerChangingMap = false;
-        GameManager.Instance.UpdateDoorDestinationPos(doorPos);
     }
 
     public void SaveData(GameData data)

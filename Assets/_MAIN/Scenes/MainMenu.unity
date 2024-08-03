@@ -151,6 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16d57f6d600a6749b2ba2e451eecfaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorDestination: 
+  doorPos: {x: 0, y: 0, z: 0}
+  playerChangingMap: 0
 --- !u!4 &24420282
 Transform:
   m_ObjectHideFlags: 0
@@ -352,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newGameButton: {fileID: 1245864930}
   continueGameButton: {fileID: 790428944}
+  newGameScene: SampleScene
 --- !u!1 &177558550
 GameObject:
   m_ObjectHideFlags: 0
