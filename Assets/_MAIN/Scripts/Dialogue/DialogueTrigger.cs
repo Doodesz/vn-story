@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -6,16 +7,23 @@ using UnityEngine;
 public class DialogueData
 {
     public string name;
-    public Sprite leftIcon;
+    public Sprite portrait;
     // public Sprite rightIcon;
 }
 
+public enum PostLineAction { None, ChangeIllustration, GoToScene}
 [System.Serializable]
 public class DialogueLine
 {
+    public Animation portraitAnim;
     public DialogueData data;
     [TextArea(3, 10)]
     public string line;
+    public PostLineAction action;
+
+    // Enter if there's a post-line action
+    public Sprite illustration;
+    public string sceneDestinationName;
 }
 
 [System.Serializable]

@@ -11,16 +11,17 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public static DialogueManager Instance;
 
     [Header("Assign GameObjects")]
-    public Image characterIconLeft;
+    public Image portrait;
     public Image characterIconRight;
     public TextMeshProUGUI characterName;
-    public TextMeshProUGUI dialogueArea;
+    public TextMeshProUGUI dialogueTextArea;
     public GameObject dialogueScreen;
     public GameObject logPanel;
     public Animator animator;
     public GameObject dialogueItemPrefab;
     public GameObject dialogueLogContainer;
     public PlayerController playerController;
+    public Image illustration;
 
     [Header("Current State")]
     public bool isInDialogue = false;
@@ -90,7 +91,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         currentLineIndex++;
 
-        characterIconLeft.sprite = currentLine.data.leftIcon;
+        portrait.sprite = currentLine.data.portrait;
         // characterIconRight.sprite = currentLine.data.rightIcon;
         characterName.text = currentLine.data.name;
 
@@ -104,10 +105,10 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     IEnumerator TypeSentence(DialogueLine dialogueLine)
     {
         isTyping = true;
-        dialogueArea.text = "";
+        dialogueTextArea.text = "";
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
-            dialogueArea.text += letter;
+            dialogueTextArea.text += letter;
             yield return new WaitForFixedUpdate();
         }
         isTyping = false;
