@@ -3869,7 +3869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camVocalPoint: {fileID: 174595410}
   moveSpeed: 2
-  camLookAhead: 2
+  camLookAhead: 3
   idleCamLerpValue: 0.01
   movingCamLerpValue: 0.1
   movingCamTimer: 7
