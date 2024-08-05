@@ -15,7 +15,7 @@ public class DialogueData // Contains anything abt the line data
     public float typingInterval = 1;
 
     // Enter if there's a post-line action
-    [Header("Post-line Action")]
+    [Header("Line Action")]
     public PostLineAction action;
     public Sprite illustration;
     public string sceneDestinationName;
