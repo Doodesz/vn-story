@@ -3,7 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 // public enum PortraitAnim { None, BounceUpOnce, BounceUpTwice, BounceDownOnce, BounceDownTwice }
-public enum PostLineAction { None, ChangeIllustration, GoToScene}
+public enum LineAction { None, ChangeIllustration, GoToScene}
 
 [System.Serializable]
 public class DialogueData // Contains anything abt the line data
@@ -16,7 +16,7 @@ public class DialogueData // Contains anything abt the line data
 
     // Enter if there's a post-line action
     [Header("Line Action")]
-    public PostLineAction action;
+    public LineAction action;
     public Sprite illustration;
     public string sceneDestinationName;
 }

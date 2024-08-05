@@ -1822,7 +1822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: {fileID: 1812547541}
   dialogueTextArea: {fileID: 1812809877}
-  dialogueScreen: {fileID: 924268617}
+  dialogueObject: {fileID: 924268617}
   logPanel: {fileID: 270514284}
   illustrationObject: {fileID: 1268059173}
   portraitObject: {fileID: 1128117802}
@@ -1839,6 +1839,8 @@ MonoBehaviour:
   isTyping: 0
   currentLineIndex: 0
   npcBeingInteracted: {fileID: 0}
+  isIllustHidden: 1
+  isSwitchingIllust: 0
   typeSpdMultiplierPref: 1
 --- !u!1 &691434788
 GameObject:
@@ -3089,7 +3091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -427, y: -0.9968567}
+  m_AnchoredPosition: {x: -427, y: -0.9968262}
   m_SizeDelta: {x: 364.0182, y: -234.6464}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1128117804
@@ -4005,7 +4007,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: da56a22647489e448a4a6525a8f70473, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c54375a22b9b009498ac4ede27aa6ca0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4180,7 +4182,7 @@ MonoBehaviour:
         name: Sensei
         portrait: {fileID: 21300000, guid: 972c9e1d7583d65459268449191199aa, type: 3}
         portraitAnim: {fileID: 0}
-        typingInterval: 1
+        typingInterval: 0
         action: 1
         illustration: {fileID: 21300000, guid: da56a22647489e448a4a6525a8f70473, type: 3}
         sceneDestinationName: 
@@ -4189,7 +4191,7 @@ MonoBehaviour:
         name: Sensei
         portrait: {fileID: 21300000, guid: 972c9e1d7583d65459268449191199aa, type: 3}
         portraitAnim: {fileID: 0}
-        typingInterval: 0.5
+        typingInterval: 0
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
@@ -4198,7 +4200,7 @@ MonoBehaviour:
         name: Sensei
         portrait: {fileID: 21300000, guid: 972c9e1d7583d65459268449191199aa, type: 3}
         portraitAnim: {fileID: 0}
-        typingInterval: 1
+        typingInterval: 0
         action: 1
         illustration: {fileID: 0}
         sceneDestinationName: 
