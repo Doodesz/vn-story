@@ -2,28 +2,32 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-[System.Serializable]
+// public enum PortraitAnim { None, BounceUpOnce, BounceUpTwice, BounceDownOnce, BounceDownTwice }
+public enum PostLineAction { None, ChangeIllustration, GoToScene}
 
-public class DialogueData
+[System.Serializable]
+public class DialogueData // Contains anything abt the line data
 {
+    // public Sprite rightIcon; // unused
     public string name;
     public Sprite portrait;
-    // public Sprite rightIcon;
+    public Animation portraitAnim;
+    public float typingInterval = 1;
+
+    // Enter if there's a post-line action
+    [Header("Post-line Action")]
+    public PostLineAction action;
+    public Sprite illustration;
+    public string sceneDestinationName;
 }
 
-public enum PostLineAction { None, ChangeIllustration, GoToScene}
+
 [System.Serializable]
-public class DialogueLine
+public class DialogueLine // Contains only for the text data
 {
-    public Animation portraitAnim;
     public DialogueData data;
     [TextArea(3, 10)]
     public string line;
-    public PostLineAction action;
-
-    // Enter if there's a post-line action
-    public Sprite illustration;
-    public string sceneDestinationName;
 }
 
 [System.Serializable]

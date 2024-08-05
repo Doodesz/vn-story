@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 156753521}
   - component: {fileID: 156753520}
   m_Layer: 5
-  m_Name: Right Speaker Portrait
+  m_Name: Right Speaker Portrait (unused)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -510,102 +510,114 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     dialogueLines:
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: woi
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: jancok
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: pencet spasi buat next
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 2
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 3
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 4
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 5
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 6
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 8
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
 --- !u!212 &210285539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -771,7 +783,7 @@ GameObject:
   - component: {fileID: 261637640}
   - component: {fileID: 261637641}
   m_Layer: 5
-  m_Name: Dialogue
+  m_Name: Dialogue Screen
   m_TagString: Dialogue Screen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1239,7 +1251,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1264,7 +1276,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.00000035762787, y: 0, z: -10}
+  m_LocalPosition: {x: 0.00000029802322, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1327,7 +1339,7 @@ MonoBehaviour:
   m_Follow: {fileID: 174595411}
   m_Lens:
     FieldOfView: 40
-    OrthographicSize: 5
+    OrthographicSize: 6
     NearClipPlane: 0.1
     FarClipPlane: 5000
     Dutch: 0
@@ -1585,102 +1597,114 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     dialogueLines:
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: woi
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: jancok
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: pencet spasi buat next
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 2
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 3
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 4
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 5
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 6
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 8
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
 --- !u!212 &654104107
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1796,22 +1820,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001935cca62cc864b86f8c813442e45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portrait: {fileID: 1128117804}
-  characterIconRight: {fileID: 156753520}
   characterName: {fileID: 1812547541}
   dialogueTextArea: {fileID: 1812809877}
-  dialogueScreen: {fileID: 261637639}
+  dialogueScreen: {fileID: 924268617}
   logPanel: {fileID: 270514284}
-  animator: {fileID: 261637641}
+  illustrationObject: {fileID: 1268059173}
+  portraitObject: {fileID: 1128117802}
+  dialogueScreenAnimator: {fileID: 261637641}
   dialogueItemPrefab: {fileID: 8164847247047064687, guid: 49b1ad923b55d2244a291cfd33053d2a, type: 3}
   dialogueLogContainer: {fileID: 916237736}
   playerController: {fileID: 1511481493}
-  illustration: {fileID: 854526080}
+  portraitImage: {fileID: 0}
+  illustrationImageObject: {fileID: 0}
+  illustrationTransitionObject: {fileID: 0}
+  portraitAnimator: {fileID: 0}
+  illustrationAnimator: {fileID: 0}
   isInDialogue: 0
   isTyping: 0
   currentLineIndex: 0
   npcBeingInteracted: {fileID: 0}
-  typingSpeed: 0.01
+  typeSpdMultiplierPref: 1
 --- !u!1 &691434788
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,7 +2635,7 @@ GameObject:
   - component: {fileID: 854526081}
   - component: {fileID: 854526080}
   m_Layer: 5
-  m_Name: Illustration
+  m_Name: Illustration Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2757,12 +2785,12 @@ GameObject:
   m_Component:
   - component: {fileID: 924268618}
   m_Layer: 5
-  m_Name: Dialogue Screen
+  m_Name: Dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &924268618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3037,6 +3065,7 @@ GameObject:
   - component: {fileID: 1128117803}
   - component: {fileID: 1128117805}
   - component: {fileID: 1128117804}
+  - component: {fileID: 1128117806}
   m_Layer: 5
   m_Name: Speaker Portrait
   m_TagString: Untagged
@@ -3060,9 +3089,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -427, y: -45.51703}
+  m_AnchoredPosition: {x: -427, y: -0.9968567}
   m_SizeDelta: {x: 364.0182, y: -234.6464}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1128117804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3083,7 +3112,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3101,6 +3130,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1128117802}
   m_CullTransparentMesh: 1
+--- !u!95 &1128117806
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128117802}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1268059173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3112,8 +3162,9 @@ GameObject:
   - component: {fileID: 1268059174}
   - component: {fileID: 1268059176}
   - component: {fileID: 1268059175}
+  - component: {fileID: 1268059177}
   m_Layer: 5
-  m_Name: Black Bars
+  m_Name: Illustration Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3132,6 +3183,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 854526079}
+  - {fileID: 1513643667}
   m_Father: {fileID: 924268618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3159,7 +3211,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 83749c191125d1d4c9eb81fa79d6cffa, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3177,6 +3229,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268059173}
   m_CullTransparentMesh: 1
+--- !u!95 &1268059177
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268059173}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 24acfa9e8a49b364d8aab373521ad8e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1413344129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3303,102 +3376,114 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     dialogueLines:
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: woi
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: jancok
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: pencet spasi buat next
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 2
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 3
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 4
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 5
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 6
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 8
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
 --- !u!212 &1413344135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3863,6 +3948,81 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 2
+--- !u!1 &1513643666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1513643667}
+  - component: {fileID: 1513643669}
+  - component: {fileID: 1513643668}
+  m_Layer: 5
+  m_Name: Transition Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1513643667
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513643666}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1268059174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1280, y: 720}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1513643668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513643666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: da56a22647489e448a4a6525a8f70473, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1513643669
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513643666}
+  m_CullTransparentMesh: 1
 --- !u!1 &1531852949
 GameObject:
   m_ObjectHideFlags: 0
@@ -3970,102 +4130,79 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     dialogueLines:
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: woi
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: jancok
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: pencet spasi buat next
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 2
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 3
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 4
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 5
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 6
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
-        portrait: {fileID: 0}
-      line: tomlol 8
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
+    - data:
+        name: Aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0.05
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: "Huft - huft\u2026 kenapa kalian tidak mengajakku bermain? Tega sekali"
+    - data:
+        name: Reiharu
+        portrait: {fileID: 21300000, guid: dbfddbbfe1f34814e837af242f78dd25, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0.05
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: Hehe.. maaf kami lupa, aku akan mengajakmu lain kali
+    - data:
+        name: Reiharu
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0.05
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: HUMPH sebaiknya kamu tidak lupa di kemudian hari
+    - data:
+        name: Kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0.05
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: Baiklah, sebaiknya kita pulang sebelum dimarahi
+    - data:
+        name: 
+        portrait: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0.05
+        action: 1
+        illustration: {fileID: 21300000, guid: c54375a22b9b009498ac4ede27aa6ca0, type: 3}
+        sceneDestinationName: 
+      line: "(Ilustrasi mereka bertiga sedang jalan / lari dengan latar sore hari)
+        \r"
+    - data:
+        name: Sensei
+        portrait: {fileID: 21300000, guid: 972c9e1d7583d65459268449191199aa, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 1
+        illustration: {fileID: 21300000, guid: da56a22647489e448a4a6525a8f70473, type: 3}
+        sceneDestinationName: 
+      line: .....
+    - data:
+        name: Sensei
+        portrait: {fileID: 21300000, guid: 972c9e1d7583d65459268449191199aa, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0.5
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: Mampus modar lu bocil
+    - data:
+        name: Sensei
+        portrait: {fileID: 21300000, guid: 972c9e1d7583d65459268449191199aa, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 1
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: ... :)
 --- !u!61 &1531852953
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5047,102 +5184,114 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     dialogueLines:
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: woi
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: jancok
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: pencet spasi buat next
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 2
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 3
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 4
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 5
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 6
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 7
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
-    - portraitAnim: {fileID: 0}
-      data:
-        name: Passerby
+    - data:
+        name: 
         portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 1
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
       line: tomlol 8
-      action: 0
-      illustration: {fileID: 0}
-      sceneDestinationName: 
 --- !u!212 &1918667418
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5744,7 +5893,6 @@ SceneRoots:
   - {fileID: 826951782}
   - {fileID: 1511481492}
   - {fileID: 71692212}
-  - {fileID: 344475912}
   - {fileID: 968755919}
   - {fileID: 251659429}
   - {fileID: 1564020547}
@@ -5753,4 +5901,5 @@ SceneRoots:
   - {fileID: 1413344136}
   - {fileID: 210285540}
   - {fileID: 654104108}
+  - {fileID: 344475912}
   - {fileID: 2140486251}

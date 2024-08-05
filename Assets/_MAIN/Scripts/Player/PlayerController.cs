@@ -74,13 +74,18 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
 
         // Resets cam position slowly when idle
-        if (!isMovingToCursor)
+        if (!isMovingToCursor && playerInControl)
         {
             camVocalPoint.transform.localPosition = 
                 Vector3.Lerp(camVocalPointPos, Vector3.zero, idleCamLerpValue);
 
             if (movingCamTimer <= 0)
                 camVocalPoint.transform.localPosition = Vector3.zero;
+        }
+
+        if (!playerInControl && DialogueManager.Instance.isInDialogue)
+        {
+            camVocalPoint.transform.localPosition = new Vector3(0, -2.5f, 0);
         }
 
         LimitPlayerPosition();

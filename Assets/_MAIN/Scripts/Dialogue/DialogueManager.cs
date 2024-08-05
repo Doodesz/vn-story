@@ -11,17 +11,23 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public static DialogueManager Instance;
 
     [Header("Assign GameObjects")]
-    public Image portrait;
-    public Image characterIconRight;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueTextArea;
     public GameObject dialogueScreen;
-    public GameObject logPanel;
-    public Animator animator;
+    public GameObject logPanel; // Review dialogue panel
+    public GameObject illustrationObject;
+    public GameObject portraitObject;
+    public Animator dialogueScreenAnimator;
     public GameObject dialogueItemPrefab;
     public GameObject dialogueLogContainer;
     public PlayerController playerController;
-    public Image illustration;
+    //public Image characterIconRight; // unused
+
+    [SerializeField] private Image portraitImage;
+    [SerializeField] private Image illustrationImageObject;
+    [SerializeField] private Image illustrationTransitionObject;
+    [SerializeField] private Animator portraitAnimator;
+    [SerializeField] private Animator illustrationAnimator;
 
     [Header("Current State")]
     public bool isInDialogue = false;
@@ -30,7 +36,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject npcBeingInteracted;
 
     [Header("Mod")]
-    public float typingSpeed = 0.2f;
+    [SerializeField] private float typeSpdMultiplierPref = 1f;
     
     private Queue<DialogueLine> lines;
 
@@ -40,9 +46,17 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             Instance = this;
 
         lines = new Queue<DialogueLine>();
+
+        dialogueScreen.SetActive(false);
+
+        portraitAnimator = portraitObject.GetComponent<Animator>();
+        portraitImage = portraitObject.GetComponent<Image>();
+        illustrationAnimator = illustrationObject.GetComponent<Animator>();
+        illustrationImageObject = illustrationObject.transform.GetChild(0).GetComponent<Image>();
+        illustrationTransitionObject = illustrationObject.transform.GetChild(1).GetComponent<Image>();
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if (isInDialogue && !isTyping && Input.GetKeyDown(KeyCode.Space))
         {
@@ -59,24 +73,30 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             return;
         }
 
+        // Sets default variables and fixes unexpected bug
         isInDialogue = true;
         dialogueScreen.SetActive(true);
         npcBeingInteracted = gameObject;
         playerController.playerInControl = false;
+        illustrationImageObject.sprite = null;
+        illustrationTransitionObject.sprite = null;
 
-        animator.Play("show");
+        dialogueScreenAnimator.Play("show");
 
         lines.Clear();
 
+        // Enqueues all lines from target TriggerDialogue
         foreach (DialogueLine dialogueLine in dialogue.dialogueLines)
         {
             lines.Enqueue(dialogueLine);
         }
 
+        // Skips to specific line if resuming from saved date
         for (int i=0; i<startLine; i++)
             DisplayNextDialogueLine();
 
         currentLineIndex = startLine;
+
     }
 
     public void DisplayNextDialogueLine()
@@ -87,49 +107,114 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             return;
         }
 
-        DialogueLine currentLine = lines.Peek();
-
+        // Go to next line
+        DialogueLine currentLine = lines.Dequeue();
         currentLineIndex++;
 
-        portrait.sprite = currentLine.data.portrait;
-        // characterIconRight.sprite = currentLine.data.rightIcon;
+        portraitImage.sprite = currentLine.data.portrait;
         characterName.text = currentLine.data.name;
+        //characterIconRight.sprite = currentLine.data.rightIcon; // unused
 
         StopAllCoroutines();
-        StartCoroutine(TypeSentence(currentLine));
+        StartCoroutine(TypeSentence(currentLine, currentLine.data.typingInterval * typeSpdMultiplierPref));
         AddNewConversationLog(currentLine.data.name, currentLine.line);
 
-        lines.Dequeue();
+        if (currentLine.data.action != PostLineAction.None)
+        {
+            TriggerDialogueAction(currentLine);
+        }
     }
 
-    IEnumerator TypeSentence(DialogueLine dialogueLine)
+    private void TriggerDialogueAction(DialogueLine dialogueLine)
+    {
+        if (dialogueLine.data.action == PostLineAction.ChangeIllustration)
+        {
+            ChangeIllustration(dialogueLine.data.illustration);
+        }
+        else if (dialogueLine.data.action == PostLineAction.GoToScene)
+        {
+            // LoadScene...
+        }
+    }
+
+    private void ChangeIllustration(Sprite spriteIllustration)
+    {
+        // Show illust transition
+        if (illustrationImageObject.sprite == null)
+        {
+            illustrationImageObject.sprite = spriteIllustration;
+            illustrationImageObject.preserveAspect = true;
+            
+            illustrationAnimator.Play("show");
+        }
+
+        // Hide illust transition
+        else if (spriteIllustration == null)
+        {
+            illustrationAnimator.Play("hide");
+
+            StartCoroutine(ResetIllustrationImage());
+        }
+
+        // Switch illust transition
+        else
+        {
+            StartCoroutine(SwitchIllustrationImage(spriteIllustration));
+        }
+
+    }
+
+    IEnumerator TypeSentence(DialogueLine dialogueLine, float typingDelay)
     {
         isTyping = true;
         dialogueTextArea.text = "";
         foreach (char letter in dialogueLine.line.ToCharArray())
         {
             dialogueTextArea.text += letter;
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(typingDelay);
         }
         isTyping = false;
     }
 
     void EndDialogue()
     {
-        ClearConversationLog();
         isInDialogue = false;
-        animator.Play("hide");
-        DeactivateDialogueScreen();
         currentLineIndex = 0;
         npcBeingInteracted = null;
         playerController.playerInControl = true;
-        DataPersistenceManager.Instance.SaveGame(); // Fix bug + autosave
+
+        ClearConversationLog();
+        HideDialogueScreen();
+
+        DataPersistenceManager.Instance.SaveGame(); // Fix bug + autosave coy awowakw
     }
 
-    IEnumerator DeactivateDialogueScreen()
+    private void HideDialogueScreen()
     {
+        illustrationAnimator.Play("hide");
+        dialogueScreenAnimator.Play("hide");
+
+        StartCoroutine(DeactivateObject(dialogueScreen));
+    }
+
+    IEnumerator ResetIllustrationImage()
+    {
+        yield return new WaitForSeconds(2f);
+        illustrationImageObject.sprite = null;
+    }
+
+    IEnumerator SwitchIllustrationImage(Sprite illustrationTotransitionTo)
+    {
+        illustrationTransitionObject.sprite = illustrationTotransitionTo;
+        illustrationAnimator.Play("switch");
         yield return new WaitForSeconds(1f);
-        dialogueScreen.SetActive(false);
+        illustrationImageObject.sprite = illustrationTotransitionTo;
+    }
+
+    IEnumerator DeactivateObject(GameObject gameObject)
+    {
+        yield return new WaitForSeconds(2f);
+        gameObject.SetActive(false);
     }
 
     public void ToggleActivateLogPanel()

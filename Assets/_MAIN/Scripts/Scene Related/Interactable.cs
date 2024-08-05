@@ -27,7 +27,7 @@ public class Interactable : MonoBehaviour
 
         else if (thisInteractableType == InteractableType.ChangeArea)
         {
-            // ChangeArea();
+            // ChangeArea(); // unused
         }
     }
 
