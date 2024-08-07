@@ -21,21 +21,36 @@ public class MainMenu : MonoBehaviour
 
     public void OnNewGameClicked() 
     {
-        DisableMenuButtons();
-        // create a new game - which will initialize our game data
-        DataPersistenceManager.Instance.NewGame();
-        // load the gameplay scene - which will in turn save the game because of
-        // OnSceneUnloaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync(newGameScene);
+        StartCoroutine(StartGame(true));
     }
 
     public void OnContinueGameClicked() 
     {
+        StartCoroutine(StartGame());
+    }
+
+    IEnumerator StartGame(bool newGame = false)
+    {
         DisableMenuButtons();
-        // load the next scene - which will in turn load the game because of 
-        // OnSceneLoaded() in the DataPersistenceManager
-        SceneManager.LoadSceneAsync(DataPersistenceManager.Instance.GetGameData().sceneName);
-        DataPersistenceManager.Instance.LoadGame();
+        ScreenTransition.instance.PlayTransitionOut();
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (newGame)
+        {
+            // create a new game - which will initialize our game data
+            DataPersistenceManager.Instance.NewGame();
+            // load the gameplay scene - which will in turn save the game because of
+            // OnSceneUnloaded() in the DataPersistenceManager
+            SceneManager.LoadSceneAsync(newGameScene);
+        }
+        else
+        {
+            // load the next scene - which will in turn load the game because of 
+            // OnSceneLoaded() in the DataPersistenceManager
+            SceneManager.LoadSceneAsync(DataPersistenceManager.Instance.GetGameData().sceneName);
+            DataPersistenceManager.Instance.LoadGame();
+        }
     }
 
     private void DisableMenuButtons() 

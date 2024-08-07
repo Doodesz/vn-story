@@ -44,51 +44,55 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-        Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
-
-        movingCamTimer -= Time.deltaTime;
-
-        if (playerInControl)
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            // When receiving keyboard input, override isMovingToCursor
-            horizontalInput = Input.GetAxis("Horizontal");
-            if (horizontalInput != 0f)
+            Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
+
+            movingCamTimer -= Time.deltaTime;
+
+            if (playerInControl)
             {
-                Move(horizontalInput);
-                isMovingToCursor = false;
-            }
+                // When receiving keyboard input, override isMovingToCursor
+                horizontalInput = Input.GetAxis("Horizontal");
+                if (horizontalInput != 0f)
+                {
+                    Move(horizontalInput);
+                    isMovingToCursor = false;
+                }
             
-            // Move to clicked position
-            if (Input.GetMouseButtonDown(0))
-            {
-                isMovingToCursor = true;
-                moveDestination = worldPosition;
+                // Move to clicked position
+                if (Input.GetMouseButtonDown(0))
+                {
+                    isMovingToCursor = true;
+                    moveDestination = worldPosition;
+                }
             }
+
+            if (isMovingToCursor)
+            {
+                MoveToCursor(moveDestination);
+            }
+
+            // Resets cam position slowly when idle
+            if (!isMovingToCursor && playerInControl)
+            {
+                camVocalPoint.transform.localPosition = 
+                    Vector3.Lerp(camVocalPointPos, Vector3.zero, idleCamLerpValue);
+
+                if (movingCamTimer <= 0)
+                    camVocalPoint.transform.localPosition = Vector3.zero;
+            }
+
+            if (!playerInControl && DialogueManager.Instance.isInDialogue)
+            {
+                camVocalPoint.transform.localPosition = new Vector3(0, -2.5f, 0);
+            }
+
+            LimitPlayerPosition();
+
         }
-
-        if (isMovingToCursor)
-        {
-            MoveToCursor(moveDestination);
-        }
-
-        // Resets cam position slowly when idle
-        if (!isMovingToCursor && playerInControl)
-        {
-            camVocalPoint.transform.localPosition = 
-                Vector3.Lerp(camVocalPointPos, Vector3.zero, idleCamLerpValue);
-
-            if (movingCamTimer <= 0)
-                camVocalPoint.transform.localPosition = Vector3.zero;
-        }
-
-        if (!playerInControl && DialogueManager.Instance.isInDialogue)
-        {
-            camVocalPoint.transform.localPosition = new Vector3(0, -2.5f, 0);
-        }
-
-        LimitPlayerPosition();
     }
 
     private void Move(float input)
