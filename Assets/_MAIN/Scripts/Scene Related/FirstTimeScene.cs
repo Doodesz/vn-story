@@ -5,6 +5,7 @@ using UnityEngine;
 public class FirstTimeScene : MonoBehaviour, IDataPersistence
 {
     public bool isFirstTimeInScene = true;
+    public bool hasFirstTimeSceneAction = false;
     public GameObject firstTimeSceneScreen;
 
     private void Update()
@@ -36,7 +37,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     {
         this.isFirstTimeInScene = data.isFirstTimeInScene;
 
-        if (isFirstTimeInScene)
+        if (isFirstTimeInScene && hasFirstTimeSceneAction)
         {
             firstTimeSceneScreen.SetActive(true);
             InitializeFirstTimeSceneBehaviour();
