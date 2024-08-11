@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
         DisableMenuButtons();
         ScreenTransition.instance.PlayTransitionOut();
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(1f);
 
         if (newGame)
         {

@@ -13,7 +13,7 @@ public class MainMenuButton : MonoBehaviour
     IEnumerator GoToMainMenu()
     {
         ScreenTransition.instance.PlayTransitionOut();
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadSceneAsync("MainMenu");
     }
 }
