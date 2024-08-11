@@ -91,7 +91,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             }
 
             LimitPlayerPosition();
-
         }
     }
 

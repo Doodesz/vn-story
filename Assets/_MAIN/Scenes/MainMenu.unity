@@ -355,7 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newGameButton: {fileID: 1245864930}
   continueGameButton: {fileID: 790428944}
-  newGameScene: SampleScene 1
+  newGameScene: Prologue
 --- !u!1 &177558550
 GameObject:
   m_ObjectHideFlags: 0

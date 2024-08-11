@@ -10,6 +10,7 @@ public class GameData
     public Vector3 playerPosition;
     public bool playerInControl;
     public bool isInDialogue;
+    public bool isFirstTimeInScene;
     public int lastDialogueLineIndex;
     public string npcBeingInteracted;
     public string sceneName;
@@ -20,14 +21,14 @@ public class GameData
     // the game starts with when there's no data to load
     public GameData() 
     {
-        playerInControl = true;
+        playerInControl = false;
         lastDialogueLineIndex = 0;
         playerPosition = Vector3.zero;
         npcBeingInteracted = null;
         isInDialogue = false;
-        sceneName = "Sample Scene";
+        sceneName = "Prologue";
         currentArea = "0";
-
+        isFirstTimeInScene = true;
 
         // coinsCollected = new SerializableDictionary<string, bool>();
     }

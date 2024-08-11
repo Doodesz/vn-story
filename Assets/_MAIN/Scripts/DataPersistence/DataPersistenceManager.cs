@@ -60,6 +60,7 @@ public class DataPersistenceManager : MonoBehaviour
     public void NewGame() 
     {
         this.gameData = new GameData();
+        SaveGame();
     }
 
     public void LoadGame()
@@ -96,10 +97,14 @@ public class DataPersistenceManager : MonoBehaviour
             return;
         }
 
-        // pass the data to other scripts so they can update it
-        foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) 
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            dataPersistenceObj.SaveData(gameData);
+            // pass the data to other scripts so they can update it
+            foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects) 
+            {
+                dataPersistenceObj.SaveData(gameData);
+            }
+
         }
 
         // save that data to a file using the data handler
