@@ -8,10 +8,16 @@ public enum InteractableType { Dialogue, ChangeArea, SwitchScenes };
 
 public class Interactable : MonoBehaviour
 {
+    [Header("Assign GameObjects")]
+    public GameObject objectiveIndicator;
+
+    [Header("This Interactable Info")]
     public InteractableType thisInteractableType;
     public string sceneDestination;
     public string areaDestination;
     public bool triggerOnTriggerEnter = false;
+    public bool isCompleted = false;
+    public bool isObjective = false;
 
     public void TriggerInteraction()
     {

@@ -447,10 +447,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 0
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!61 &210285537
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -686,7 +689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -8.58, y: 0}
+  m_AnchoredPosition: {x: -10.59, y: 0}
   m_SizeDelta: {x: 1.45, y: 2.3853}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &212136164
@@ -1037,7 +1040,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &320637495
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1562,6 +1565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFirstTimeInScene: 1
+  hasFirstTimeSceneAction: 1
   firstTimeSceneScreen: {fileID: 1656691674}
 --- !u!114 &624933096
 MonoBehaviour:
@@ -1616,10 +1620,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 0
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!1 &654104101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,10 +1690,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 0
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!61 &654104105
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2544,8 +2554,8 @@ Transform:
   m_GameObject: {fileID: 826951780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.04, y: -0.32, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.05, y: 1.96, z: 0}
+  m_LocalScale: {x: 2.6947, y: 2.6947, z: 2.6947}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -3464,10 +3474,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 0
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!61 &1413344133
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3880,7 +3893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1479597220
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4559,10 +4572,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 0
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!222 &1531852955
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4623,10 +4639,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 2
   sceneDestination: SampleScene 2
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!212 &1564020546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5148,7 +5167,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.6933962, b: 0.9841573, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5167,8 +5186,8 @@ Transform:
   m_GameObject: {fileID: 1608801708}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.58, y: -4.13, z: 0}
-  m_LocalScale: {x: 1.8994, y: 0.3916, z: 1}
+  m_LocalPosition: {x: 0.1, y: -2.87, z: 0}
+  m_LocalScale: {x: 2.0827663, y: 0.31598216, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5736,10 +5755,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8ac5e267a695c4db5f709bc5a242a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectiveIndicator: {fileID: 0}
   thisInteractableType: 0
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  isCompleted: 0
+  isObjective: 0
 --- !u!61 &1918667416
 BoxCollider2D:
   m_ObjectHideFlags: 0

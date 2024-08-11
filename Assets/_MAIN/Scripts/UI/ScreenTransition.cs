@@ -14,6 +14,9 @@ public class ScreenTransition : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(true);
+
         //blackScreen.SetActive(true);
         animator.Play("transition in");
     }
