@@ -1582,8 +1582,8 @@ MonoBehaviour:
         portrait: {fileID: 0}
         portraitAnim: {fileID: 0}
         typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
+        action: 1
+        illustration: {fileID: 21300000, guid: 1791d4bd01f34c54a8a84686f58a827a, type: 3}
         sceneDestinationName: 
       line: aaaa
     - data:

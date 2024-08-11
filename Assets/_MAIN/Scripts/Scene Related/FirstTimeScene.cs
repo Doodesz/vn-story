@@ -9,7 +9,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isFirstTimeInScene)
+        if (isFirstTimeInScene && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ) )
         {
             GetComponent<DialogueTrigger>().TriggerDialogue();
             isFirstTimeInScene = false;
@@ -27,7 +27,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     {
         firstTimeSceneScreen.GetComponent<Animator>().Play("hide");
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2f);
 
         firstTimeSceneScreen.SetActive(false);
     }

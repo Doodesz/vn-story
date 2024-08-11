@@ -66,7 +66,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     private void Update()
     {
 
-        if (isInDialogue && !isTyping && Input.GetKeyDown(KeyCode.Space))
+        if (isInDialogue && !isTyping && ( Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ) )
         {
             DisplayNextDialogueLine();
         }
