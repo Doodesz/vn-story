@@ -6,31 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
-    [Header("Assign GameObjects")]
-    public GameObject camVocalPoint;
-
     [Header("Parameters")]
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private float camLookAhead;
-
-    [Header("Camera Parameters")]
-    [SerializeField] private float idleCamLerpValue;
-    [SerializeField] private float movingCamLerpValue;
-    [SerializeField] private float movingCamTimer;
-    [SerializeField] private float movingCamTimeout = 5f;
 
     [Header("Current State")]
     public bool playerInControl = true;
+    public bool isMoving = false;
+    public bool isMovingLeft;
+    public bool isMovingRight;
     [SerializeField] float horizontalInput;
-    [SerializeField] bool isMovingToCursor = false;
     [SerializeField] Vector3 moveDestination = Vector3.zero;
 
-    public static PlayerController Instance;
+    public static PlayerController instance;
 
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;
+        instance = this;
 
         if (SceneManager.GetActiveScene().name == "MainMenu")
             playerInControl = false;
@@ -48,10 +40,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-            Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
 
-            movingCamTimer -= Time.deltaTime;
-
+            // Movements
             if (playerInControl)
             {
                 // When receiving keyboard input, override isMovingToCursor
@@ -59,35 +49,21 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 if (horizontalInput != 0f)
                 {
                     Move(horizontalInput);
-                    isMovingToCursor = false;
+                    isMoving = false;
                 }
             
                 // Move to clicked position
                 if (Input.GetMouseButtonDown(0))
                 {
-                    isMovingToCursor = true;
+                    isMoving = true;
                     moveDestination = worldPosition;
+                    isMovingLeft = false;
+                    isMovingRight = false;
                 }
             }
-
-            if (isMovingToCursor)
+            if (isMoving)
             {
                 MoveToCursor(moveDestination);
-            }
-
-            // Resets cam position slowly when idle
-            if (!isMovingToCursor && playerInControl)
-            {
-                camVocalPoint.transform.localPosition = 
-                    Vector3.Lerp(camVocalPointPos, Vector3.zero, idleCamLerpValue);
-
-                if (movingCamTimer <= 0)
-                    camVocalPoint.transform.localPosition = Vector3.zero;
-            }
-
-            if (!playerInControl && DialogueManager.Instance.isInDialogue)
-            {
-                camVocalPoint.transform.localPosition = new Vector3(0, -2.5f, 0);
             }
 
             LimitPlayerPosition();
@@ -96,39 +72,40 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Move(float input)
     {
-        movingCamTimer = movingCamTimeout;
+        //StopCoroutine(camVocalPoint.StartResetCamTimer());
+        //StartCoroutine(camVocalPoint.StartResetCamTimer());
 
         transform.Translate(new Vector3(input, 0f, 0f) * moveSpeed * Time.deltaTime);
     }
 
     private void MoveToCursor(Vector3 destination)
     {
-        Vector3 camVocalPointPos = camVocalPoint.transform.localPosition;
-        Vector3 camDestination = new Vector3(camLookAhead, 0, 0);
-        movingCamTimer = movingCamTimeout;
-
         // If clicked postion on the left side of the player, move to the left
         if (destination.x < gameObject.transform.localPosition.x)
         {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
-            camVocalPoint.transform.localPosition = 
-                Vector3.Lerp(camVocalPointPos, -camDestination, movingCamLerpValue);
-
+            isMovingLeft = true;
+                
             // If exceeding the targeted position, cancels movement, this fixes bug
             if (destination.x > gameObject.transform.localPosition.x)
-                isMovingToCursor = false;
+            {
+                isMoving = false;
+                isMovingLeft = false;
+            }
         }
 
         // If opposite
         else if (destination.x > gameObject.transform.localPosition.x)
         {
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
-            camVocalPoint.transform.localPosition = 
-                Vector3.Lerp(camVocalPointPos, camDestination, movingCamLerpValue);
-            
+            isMovingRight = true;
+
             // If exceeding the targeted position, cancels movement
             if (destination.x < gameObject.transform.localPosition.x)
-                isMovingToCursor = false;
+            {
+                isMoving = false;
+                isMovingRight = false;
+            }
         }
     }
 
@@ -142,12 +119,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (playerPosX > mapManager.rightBoundary)
         {
             transform.position = new Vector2(rightBoundary, transform.position.y);
-            isMovingToCursor = false;
+            isMoving = false;
         }
         else if (playerPosX < mapManager.leftBoundary)
         {
             transform.position = new Vector2(leftBoundary, transform.position.y);
-            isMovingToCursor = false;
+            isMoving = false;
         }
     }
 
@@ -169,12 +146,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             if (currentInteractable.triggerOnTriggerEnter)
             {
                 currentInteractable.TriggerInteraction();
-                isMovingToCursor = false;
+                isMoving = false;
+                //camVocalPoint.SwitchToDialogueCam();
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
                 currentInteractable.TriggerInteraction();
-                isMovingToCursor = false;
+                isMoving = false;
+                //camVocalPoint.SwitchToDialogueCam();
             }
         }
     }

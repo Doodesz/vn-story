@@ -21,7 +21,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
     public void InitializeFirstTimeSceneBehaviour()
     {
-        PlayerController.Instance.playerInControl = false;
+        PlayerController.instance.playerInControl = false;
     }
 
     private IEnumerator HideFirstTimeSceneScreen()
