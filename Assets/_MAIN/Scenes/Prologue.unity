@@ -1561,7 +1561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFirstTimeInScene: 1
-  hasFirstTimeSceneAction: 1
+  hasFirstTimeSceneAction: 0
   firstTimeSceneScreen: {fileID: 1656691674}
 --- !u!114 &624933096
 MonoBehaviour:
