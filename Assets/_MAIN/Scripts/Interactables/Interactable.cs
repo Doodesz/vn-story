@@ -46,4 +46,14 @@ public class Interactable : MonoBehaviour
             SceneManager.LoadSceneAsync(sceneDestination, LoadSceneMode.Single);
         }
     }
+
+    public void ShowInteractPrompt()
+    {
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+
+    public void HideInteractPrompt()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+    }
 }

@@ -39,10 +39,10 @@ public class Dialogue
 [RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
+    public List<Dialogue> dialogue;
 
-    public void TriggerDialogue(int startLine = 0)
+    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0)
     {
-        DialogueManager.Instance.StartDialogue(dialogue, gameObject, startLine);
+        DialogueManager.Instance.StartDialogue(dialogue[dialogueIndex], gameObject, startLine);
     }
 }

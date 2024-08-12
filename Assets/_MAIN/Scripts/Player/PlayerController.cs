@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
+    [Header("Assign GameObjects")]
+    public MoveIndicator moveIndicator;
+
     [Header("Parameters")]
     [SerializeField] private float moveSpeed = 1f;
 
@@ -17,12 +20,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] float horizontalInput;
     [SerializeField] Vector3 moveDestination = Vector3.zero;
 
+    private Animator animator;
+
     public static PlayerController instance;
 
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        animator = GetComponent<Animator>();
 
         if (SceneManager.GetActiveScene().name == "MainMenu")
             playerInControl = false;
@@ -44,6 +50,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             // Movements
             if (playerInControl)
             {
+                // Deprecated
                 // When receiving keyboard input, override isMovingToCursor
                 horizontalInput = Input.GetAxis("Horizontal");
                 if (horizontalInput != 0f)
@@ -55,10 +62,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 // Move to clicked position
                 if (Input.GetMouseButtonDown(0))
                 {
+                    // Overwrites current movement first
+                    CancelMovement();
+
                     isMoving = true;
                     moveDestination = worldPosition;
-                    isMovingLeft = false;
-                    isMovingRight = false;
+                    moveIndicator.Show(worldPosition);
                 }
             }
             if (isMoving)
@@ -70,28 +79,26 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
     }
 
+    // Deprecated
     private void Move(float input)
     {
-        //StopCoroutine(camVocalPoint.StartResetCamTimer());
-        //StartCoroutine(camVocalPoint.StartResetCamTimer());
-
         transform.Translate(new Vector3(input, 0f, 0f) * moveSpeed * Time.deltaTime);
     }
 
     private void MoveToCursor(Vector3 destination)
     {
+        animator.SetBool("isMoving", true);
+
         // If clicked postion on the left side of the player, move to the left
         if (destination.x < gameObject.transform.localPosition.x)
         {
             transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
             isMovingLeft = true;
-                
+            transform.localScale = new Vector3(1, 1, 1);   
+
             // If exceeding the targeted position, cancels movement, this fixes bug
             if (destination.x > gameObject.transform.localPosition.x)
-            {
-                isMoving = false;
-                isMovingLeft = false;
-            }
+                CancelMovement();
         }
 
         // If opposite
@@ -99,14 +106,21 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             transform.Translate(Vector3.right * moveSpeed * Time.deltaTime);
             isMovingRight = true;
+            transform.localScale = new Vector3(-1, 1, 1);
 
             // If exceeding the targeted position, cancels movement
             if (destination.x < gameObject.transform.localPosition.x)
-            {
-                isMoving = false;
-                isMovingRight = false;
-            }
+                CancelMovement();
         }
+    }
+
+    private void CancelMovement()
+    {
+        isMoving = false;
+        isMovingRight = false;
+        isMovingLeft = false;
+        animator.SetBool("isMoving", false);
+        moveIndicator.Hide();
     }
 
     private void LimitPlayerPosition()
@@ -119,12 +133,12 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (playerPosX > mapManager.rightBoundary)
         {
             transform.position = new Vector2(rightBoundary, transform.position.y);
-            isMoving = false;
+            CancelMovement();
         }
         else if (playerPosX < mapManager.leftBoundary)
         {
             transform.position = new Vector2(leftBoundary, transform.position.y);
-            isMoving = false;
+            CancelMovement();
         }
     }
 
@@ -137,11 +151,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         GameManager.Instance.UpdateDoorDestinationPos(doorPos);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Interactable currentInteractable = collision.GetComponent<Interactable>();
+        Interactable currentInteractable = other.GetComponent<Interactable>();
 
-        if (collision.gameObject.CompareTag("Interactable") && playerInControl)
+        if (other.gameObject.CompareTag("Interactable") && playerInControl)
         {
             if (currentInteractable.triggerOnTriggerEnter)
             {
@@ -155,7 +169,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 isMoving = false;
                 //camVocalPoint.SwitchToDialogueCam();
             }
+        
+            other.GetComponent<Interactable>().ShowInteractPrompt();
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Interactable"))
+            other.GetComponent<Interactable>().HideInteractPrompt();
     }
 
     public void SaveData(GameData data)
