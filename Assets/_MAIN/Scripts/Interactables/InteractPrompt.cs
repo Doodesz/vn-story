@@ -10,5 +10,6 @@ public class InteractPrompt : MonoBehaviour
     private void OnMouseDown()
     {
         transform.GetComponentInParent<Interactable>().TriggerInteraction();
+        PlayerController.instance.CancelMovement();
     }
 }

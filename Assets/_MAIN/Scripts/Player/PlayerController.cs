@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
             // Movements
-            if (playerInControl)
+            if (playerInControl && !DialogueManager.Instance.isInDialogue)
             {
                 // Deprecated
                 // When receiving keyboard input, override isMovingToCursor
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     CancelMovement(); // Overwrites current movement first
 
                     // Denies movement on certain screen areas
-                    if (!(GetMousePosScreenRatio().y < -0.4f))
+                    if (!UIManager.instance.isMouseOverButton)
                     {
                         isMoving = true;
                         moveDestination = mouseWorldPosition;
@@ -80,11 +80,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
             LimitPlayerPosition();
         }
-    }
-
-    private void LateUpdate()
-    {
-        
     }
 
     // Deprecated
@@ -172,6 +167,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         StopAllCoroutines();
     }
 
+    // Unused
     private Vector2 GetMousePosScreenRatio()
     {
         // Ive no idea how this is calculated again but it works:D
@@ -231,9 +227,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
+            this.playerInControl = data.playerInControl;
+
             if (!GameManager.Instance.playerChangingMap)
                 this.gameObject.transform.position = data.playerPosition;
-            this.playerInControl = data.playerInControl;
         }
     }
 }
