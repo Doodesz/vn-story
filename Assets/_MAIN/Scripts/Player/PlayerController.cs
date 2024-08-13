@@ -126,11 +126,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         moveIndicator.Hide();
     }
 
-    public void SetPlayerControlState(bool state)
-    {
-        isPlayerInControl = state;
-    }
-
     private void LimitPlayerPosition()
     {
         MapManager mapManager = MapManager.Instance;
