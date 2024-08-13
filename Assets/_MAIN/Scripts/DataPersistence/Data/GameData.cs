@@ -21,7 +21,7 @@ public class GameData
     // the game starts with when there's no data to load
     public GameData() 
     {
-        playerInControl = false;
+        playerInControl = true;
         lastDialogueLineIndex = 0;
         playerPosition = Vector3.zero;
         npcBeingInteracted = null;

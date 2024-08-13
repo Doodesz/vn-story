@@ -11,7 +11,7 @@ public class Interactable : MonoBehaviour
     [Header("Assign GameObjects")]
     public GameObject objectiveIndicator;
 
-    [Header("This Interactable Info")]
+    [Header("This Interactable Parameters")]
     public InteractableType thisInteractableType;
     public string sceneDestination;
     public string areaDestination;
@@ -33,6 +33,7 @@ public class Interactable : MonoBehaviour
 
         else if (thisInteractableType == InteractableType.ChangeArea)
         {
+            Debug.Log("InteractableType.ChangeArea has not yet been coded.");
             // ChangeArea(); // unused
         }
     }

@@ -204,7 +204,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         isInDialogue = false;
         currentLineIndex = 0;
         npcBeingInteracted = null;
-        playerController.playerInControl = true;
+        StartCoroutine(playerController.ResumePlayerControlAfterSeconds(0.5f));
 
         ClearConversationLog();
         HideDialogueScreen();

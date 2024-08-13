@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class FirstTimeScene : MonoBehaviour, IDataPersistence
 {
+    [Header("Assign GameObjects")]
+    public GameObject firstTimeSceneScreen;
+    public PlayerController playerController;
+
+    [Header("This Scene Parameters")]
     public bool isFirstTimeInScene = true;
     public bool hasFirstTimeSceneAction = false;
-    public GameObject firstTimeSceneScreen;
 
     private void Update()
     {
@@ -21,7 +25,9 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
     public void InitializeFirstTimeSceneBehaviour()
     {
-        PlayerController.instance.playerInControl = false;
+        playerController.playerInControl = false;
+
+        // or do smth like play a video cutscene
     }
 
     private IEnumerator HideFirstTimeSceneScreen()
@@ -40,12 +46,14 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
         if (isFirstTimeInScene && hasFirstTimeSceneAction)
         {
             firstTimeSceneScreen.SetActive(true);
+            data.playerInControl = false;
             InitializeFirstTimeSceneBehaviour();
         }
-        else
+        else if (!hasFirstTimeSceneAction)
         {
             firstTimeSceneScreen.SetActive(false);
             this.enabled = false;
+            data.playerInControl = true;
         }
     }
 

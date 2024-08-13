@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
@@ -45,7 +44,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
             // Movements
             if (playerInControl)
@@ -62,14 +61,18 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 // Move to clicked position
                 if (Input.GetMouseButtonDown(0))
                 {
-                    // Overwrites current movement first
-                    CancelMovement();
+                    CancelMovement(); // Overwrites current movement first
 
-                    isMoving = true;
-                    moveDestination = worldPosition;
-                    moveIndicator.Show(worldPosition);
+                    // Denies movement on certain screen areas
+                    if (!(GetMousePosScreenRatio().y < -0.4f))
+                    {
+                        isMoving = true;
+                        moveDestination = mouseWorldPosition;
+                        moveIndicator.Show(mouseWorldPosition);
+                    }
                 }
             }
+
             if (isMoving)
             {
                 MoveToCursor(moveDestination);
@@ -77,6 +80,11 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
             LimitPlayerPosition();
         }
+    }
+
+    private void LateUpdate()
+    {
+        
     }
 
     // Deprecated
@@ -114,13 +122,18 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
     }
 
-    private void CancelMovement()
+    public void CancelMovement()
     {
         isMoving = false;
         isMovingRight = false;
         isMovingLeft = false;
         animator.SetBool("isMoving", false);
         moveIndicator.Hide();
+    }
+
+    public void SetPlayerControlState(bool state)
+    {
+        playerInControl = state;
     }
 
     private void LimitPlayerPosition()
@@ -151,12 +164,38 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         GameManager.Instance.UpdateDoorDestinationPos(doorPos);
     }
 
+    public IEnumerator ResumePlayerControlAfterSeconds(float duration)
+    {
+        playerInControl = false;
+        yield return new WaitForSeconds(duration);
+        playerInControl = true;
+        StopAllCoroutines();
+    }
+
+    private Vector2 GetMousePosScreenRatio()
+    {
+        // Ive no idea how this is calculated again but it works:D
+        float ratio = Camera.main.aspect;
+
+        float mousePosX = (Input.mousePosition.x) - (Screen.width / 2);
+        float mousePosY = (Input.mousePosition.y) - (Screen.height / 2);
+
+        float xPos = mousePosX / Screen.width;
+        float yPos = mousePosY / Screen.height;
+
+        float finalPosX = (xPos * ratio);
+        float finalPosY = (yPos);
+
+        return new Vector2(finalPosX, finalPosY);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Interactable currentInteractable = other.GetComponent<Interactable>();
-
         if (other.gameObject.CompareTag("Interactable") && playerInControl)
         {
+            Interactable currentInteractable = other.GetComponent<Interactable>();
+            other.GetComponent<Interactable>().ShowInteractPrompt();
+            
             if (currentInteractable.triggerOnTriggerEnter)
             {
                 currentInteractable.TriggerInteraction();
@@ -170,7 +209,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 //camVocalPoint.SwitchToDialogueCam();
             }
         
-            other.GetComponent<Interactable>().ShowInteractPrompt();
         }
     }
 
