@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     [SerializeField] private float moveSpeed = 1f;
 
     [Header("Current State")]
-    public bool playerInControl = true;
+    public bool isPlayerInControl = true;
     public bool isMoving = false;
     public bool isMovingLeft;
     public bool isMovingRight;
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         animator = GetComponent<Animator>();
 
         if (SceneManager.GetActiveScene().name == "MainMenu")
-            playerInControl = false;
+            isPlayerInControl = false;
 
         if (GameManager.Instance.playerChangingMap && SceneManager.GetActiveScene().isLoaded)
         {
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
             // Movements
-            if (playerInControl && !DialogueManager.Instance.isInDialogue)
+            if (PlayerInControl())
             {
                 // Deprecated
                 // When receiving keyboard input, override isMovingToCursor
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void SetPlayerControlState(bool state)
     {
-        playerInControl = state;
+        isPlayerInControl = state;
     }
 
     private void LimitPlayerPosition()
@@ -161,10 +161,21 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public IEnumerator ResumePlayerControlAfterSeconds(float duration)
     {
-        playerInControl = false;
+        isPlayerInControl = false;
         yield return new WaitForSeconds(duration);
-        playerInControl = true;
+        isPlayerInControl = true;
         StopAllCoroutines();
+    }
+
+    public bool PlayerInControl()
+    {
+        if (isPlayerInControl && !DialogueManager.Instance.isInDialogue && !UIManager.instance.isOnCoveredScreenUI)
+            return true;
+        else
+        {
+            isPlayerInControl = false; // Fix bug
+            return false;
+        }
     }
 
     // Unused
@@ -187,7 +198,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Interactable") && playerInControl)
+        if (other.gameObject.CompareTag("Interactable") && isPlayerInControl)
         {
             Interactable currentInteractable = other.GetComponent<Interactable>();
             other.GetComponent<Interactable>().ShowInteractPrompt();
@@ -219,7 +230,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             data.playerPosition = this.gameObject.transform.position;
-            data.playerInControl = this.playerInControl;
+            data.playerInControl = this.isPlayerInControl;
         }
     }
 
@@ -227,7 +238,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
-            this.playerInControl = data.playerInControl;
+            this.isPlayerInControl = data.playerInControl;
 
             if (!GameManager.Instance.playerChangingMap)
                 this.gameObject.transform.position = data.playerPosition;

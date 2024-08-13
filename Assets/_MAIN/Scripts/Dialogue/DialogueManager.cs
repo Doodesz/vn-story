@@ -94,7 +94,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         isInDialogue = true;
         dialogueObject.SetActive(true);
         npcBeingInteracted = gameObject;
-        playerController.playerInControl = false;
+        playerController.isPlayerInControl = false;
         illustrationImageObject.sprite = null;
         illustrationTransitionObject.sprite = null;
 
@@ -127,7 +127,6 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         // Go to next line
         DialogueLine currentLine = lines.Dequeue();
         currentLineIndex++;
-
 
         portraitImage.sprite = currentLine.data.portrait;
         characterName.text = currentLine.data.name;

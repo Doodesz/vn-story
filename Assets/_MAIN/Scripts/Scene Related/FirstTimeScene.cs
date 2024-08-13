@@ -25,7 +25,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
     public void InitializeFirstTimeSceneBehaviour()
     {
-        playerController.playerInControl = false;
+        playerController.isPlayerInControl = false;
 
         // or do smth like play a video cutscene
     }
