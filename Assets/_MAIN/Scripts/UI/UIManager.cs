@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     public bool isMouseOverButton;
+    public bool isOnCoveredScreenUI;
 
     public static UIManager instance;
 

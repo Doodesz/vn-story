@@ -67,7 +67,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     {
 
         if (isInDialogue && !isTyping && ( Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) )
-            && !UIManager.instance.isMouseOverButton)
+            && !UIManager.instance.isMouseOverButton && !UIManager.instance.isOnCoveredScreenUI)
         {
             DisplayNextDialogueLine();
         }
@@ -255,6 +255,11 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public void ToggleActivateLogPanel()
     {
         logPanel.SetActive(!logPanel.activeInHierarchy);
+
+        if (logPanel.activeInHierarchy)
+            UIManager.instance.isOnCoveredScreenUI = true;
+        else
+            UIManager.instance.isOnCoveredScreenUI = false;
     }
 
     public void AddNewConversationLog(string name, string text)
