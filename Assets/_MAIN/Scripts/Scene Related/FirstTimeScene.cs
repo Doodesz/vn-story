@@ -12,6 +12,19 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     public bool isFirstTimeInScene = true;
     public bool hasFirstTimeSceneAction = false;
 
+    public static FirstTimeScene instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
+    private void Start()
+    {
+        if (isFirstTimeInScene)
+            isFirstTimeInScene = false;
+    }
+
     private void Update()
     {
         if (isFirstTimeInScene && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ) )
@@ -36,6 +49,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
         yield return new WaitForSecondsRealtime(2f);
 
+        isFirstTimeInScene = false;
         firstTimeSceneScreen.SetActive(false);
     }
 
@@ -52,7 +66,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
         else if (!hasFirstTimeSceneAction)
         {
             firstTimeSceneScreen.SetActive(false);
-            this.enabled = false;
+            //this.enabled = false;
             data.playerInControl = true;
         }
     }

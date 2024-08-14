@@ -14,11 +14,11 @@ public class MapManager : MonoBehaviour, IDataPersistence
     [Header("Assign Area GameObject")]
     [SerializeField] private List<GameObject> areaGameObjects;
 
-    public static MapManager Instance;
+    public static MapManager instance;
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
         sceneName = SceneManager.GetActiveScene().name;
     }
 

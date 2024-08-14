@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void LimitPlayerPosition()
     {
-        MapManager mapManager = MapManager.Instance;
+        MapManager mapManager = MapManager.instance;
         float leftBoundary = mapManager.leftBoundary;
         float rightBoundary = mapManager.rightBoundary;
         float playerPosX = transform.position.x;

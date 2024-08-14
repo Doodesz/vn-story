@@ -16,9 +16,10 @@ public class Interactable : MonoBehaviour
     public string sceneDestination;
     public string areaDestination;
     public bool triggerOnTriggerEnter = false;
-    public bool isCompleted = false;
-    public bool isObjective = false;
 
+    [Header("Task Parameters")]
+    public bool hasBeenCompleted = false;
+    
     public void TriggerInteraction()
     {
         if (thisInteractableType == InteractableType.Dialogue)
@@ -35,6 +36,12 @@ public class Interactable : MonoBehaviour
         {
             Debug.Log("InteractableType.ChangeArea has not yet been coded.");
             // ChangeArea(); // unused
+        }
+
+        if (IsTaskObject())
+        {
+            hasBeenCompleted = true;
+            TasksManager.instance.UpdateTaskList();
         }
     }
 
@@ -56,5 +63,20 @@ public class Interactable : MonoBehaviour
     public void HideInteractPrompt()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+    }
+
+    private bool IsTaskObject()
+    {
+        List<TaskObject> taskList = TasksManager.instance.GetTaskList();
+
+        foreach (TaskObject taskObject in taskList)
+            if (taskObject.taskObject == this.gameObject)
+            {
+                Debug.Log("Is a task object");
+                return true;
+            }
+
+        Debug.Log("Is not a task object");
+        return false;
     }
 }
