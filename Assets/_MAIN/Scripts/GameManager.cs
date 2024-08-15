@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("Found more than one Game Manager in the scene. Destroying the newest one.");
             Destroy(this.gameObject);
             return;
         }

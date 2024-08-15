@@ -17,9 +17,9 @@ public class GameData
     public string npcBeingInteracted;
     public string sceneName;
     public string currentArea;
-    public List<TaskObject> taskList;
+    public List<TaskItem> taskItemsList;
+    public SerializableDictionary<string, bool> taskObjectsDictionary;
 
-    // public SerializableDictionary<string, bool> coinsCollected;
     // the values defined in this constructor will be the default values
     // the game starts with when there's no data to load
     public GameData() 
@@ -34,8 +34,7 @@ public class GameData
         sceneName = "Prologue";
         currentArea = "0";
         isFirstTimeInScene = true;
-        taskList = new List<TaskObject>();
-
-        // coinsCollected = new SerializableDictionary<string, bool>();
+        taskItemsList = new List<TaskItem>();
+        taskObjectsDictionary = new SerializableDictionary<string, bool>();
     }
 }

@@ -8,23 +8,28 @@ public enum InteractableType { Dialogue, ChangeArea, SwitchScenes };
 
 public class Interactable : MonoBehaviour
 {
-    [Header("Assign GameObjects")]
-    public GameObject objectiveIndicator;
-
     [Header("This Interactable Parameters")]
     public InteractableType thisInteractableType;
     public string sceneDestination;
     public string areaDestination;
     public bool triggerOnTriggerEnter = false;
-
-    [Header("Task Parameters")]
-    public bool hasBeenCompleted = false;
     
+    [SerializeField] bool hasTaskObjectAttached;
+
+    private void Awake()
+    {
+        if (GetComponent<TaskObject>() != null)
+            hasTaskObjectAttached = true;
+    }
+
     public void TriggerInteraction()
     {
         if (thisInteractableType == InteractableType.Dialogue)
         {
-            GetComponent<DialogueTrigger>().TriggerDialogue();
+            if (hasTaskObjectAttached)
+                GetComponent<DialogueTrigger>().TriggerDialogue(CheckDialogueIndexToTrigger());
+            else
+                GetComponent<DialogueTrigger>().TriggerDialogue();
         }
 
         else if (thisInteractableType == InteractableType.SwitchScenes)
@@ -38,10 +43,11 @@ public class Interactable : MonoBehaviour
             // ChangeArea(); // unused
         }
 
-        if (IsTaskObject())
+        // Order of execution is important, this is put down below because it needs to trigger the interaction first before updating object
+        if (hasTaskObjectAttached)
         {
-            hasBeenCompleted = true;
-            TasksManager.instance.UpdateTaskList();
+            GetComponent<TaskObject>().isCompleted = true;
+            TasksManager.instance.UpdateTaskItemsList();
         }
     }
 
@@ -65,18 +71,34 @@ public class Interactable : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    private bool IsTaskObject()
+    private void TriggerDialogueBasedOnTaskCompleted()
     {
-        List<TaskObject> taskList = TasksManager.instance.GetTaskList();
-
-        foreach (TaskObject taskObject in taskList)
-            if (taskObject.taskObject == this.gameObject)
+        // For every task item
+        foreach (TaskItem taskItem in TasksManager.instance.taskItemsList)
+        {
+            // Find the related game object in the targets task items
+            if (taskItem.targetObject == this.gameObject)
             {
-                Debug.Log("Is a task object");
-                return true;
+                GetComponent<DialogueTrigger>().TriggerDialogue(taskItem.dialogueToTrigger);
+                break;
             }
 
-        Debug.Log("Is not a task object");
-        return false;
+            // If not found
+            Debug.LogWarning("Completed task item target object not found, triggering default index");
+        }
+    }
+
+    private int CheckDialogueIndexToTrigger()
+    {
+        TaskObject thisTaskObject = GetComponent<TaskObject>();
+        List<TaskItem> taskObjectsList = TasksManager.instance.taskItemsList;
+        
+        foreach (TaskItem taskItem in taskObjectsList)
+        {
+            if (taskItem.targetObject == GetComponent<DialogueTrigger>())
+                return 1;
+        }
+
+        return 0;
     }
 }
