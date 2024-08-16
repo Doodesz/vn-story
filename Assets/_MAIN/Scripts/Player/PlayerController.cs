@@ -32,9 +32,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (SceneManager.GetActiveScene().name == "MainMenu")
             isPlayerInControl = false;
 
-        if (GameManager.Instance.playerChangingMap && SceneManager.GetActiveScene().isLoaded)
+        if (GameManager.instance.playerChangingMap && SceneManager.GetActiveScene().isLoaded)
         {
-            RepositionPlayerToDoor(GameManager.Instance.doorDestination);
+            RepositionPlayerToDoor(GameManager.instance.doorDestination);
             DataPersistenceManager.Instance.SaveGame(); // Fix bug +fitur auto save anjay:D
         }
     }
@@ -150,8 +150,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         Vector3 doorPos = GameObject.Find(doorDestination).transform.position;
 
         transform.position = new Vector2(doorPos.x, transform.position.y);
-        GameManager.Instance.playerChangingMap = false;
-        GameManager.Instance.UpdateDoorDestinationPos(doorPos);
+        GameManager.instance.playerChangingMap = false;
+        GameManager.instance.UpdateDoorDestinationPos(doorPos);
     }
 
     public IEnumerator ResumePlayerControlAfterSeconds(float duration)
@@ -235,7 +235,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             this.isPlayerInControl = data.playerInControl;
 
-            if (!GameManager.Instance.playerChangingMap)
+            if (!GameManager.instance.playerChangingMap)
                 this.gameObject.transform.position = data.playerPosition;
         }
     }

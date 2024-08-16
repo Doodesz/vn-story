@@ -16,6 +16,8 @@ public class Interactable : MonoBehaviour
     
     [SerializeField] TaskObject taskObject;
     [SerializeField] TasksManager tasksManager;
+    [SerializeField] DialogueManager dialogueManager;
+    [SerializeField] GameManager gameManager;
     [SerializeField] bool hasTaskObjectAttached;
 
     private void Awake()
@@ -30,6 +32,8 @@ public class Interactable : MonoBehaviour
     {
         taskObject = GetComponent<TaskObject>();
         tasksManager = TasksManager.instance;    
+        dialogueManager = DialogueManager.instance;
+        gameManager = GameManager.instance;
     }
 
     public void TriggerInteraction()
@@ -55,25 +59,24 @@ public class Interactable : MonoBehaviour
 
         // Order of execution is important, this is put down below because it needs to trigger the interaction first before updating object
         // Sets complete if this interactable is the current task
-        if (tasksManager.currTaskItem != null) 
-            if (tasksManager.currTaskItem.taskObject == taskObject)
-            {
-                if (taskObject.isCompleted)
-                    Debug.LogWarning("Task object " + taskObject + " has already been completed");
+        if (tasksManager.currTaskItem != null && tasksManager.currTaskItem.taskObject == taskObject && hasTaskObjectAttached)
+        {
+            if (taskObject.isCompleted)
+                Debug.LogWarning("Task object " + taskObject + " has already been completed");
 
-                taskObject.isCompleted = true;
+            taskObject.isCompleted = true;
 
-                if (thisInteractableType == InteractableType.Dialogue)
-                    DialogueManager.instance.hasPendingTaskListUpdate = true;
-            }
+            if (thisInteractableType == InteractableType.Dialogue)
+                DialogueManager.instance.hasPendingTaskListUpdate = true;
+        }
     }
 
     private void SwitchScene()
     {
         if (thisInteractableType == InteractableType.SwitchScenes)
         {
-            GameManager.Instance.doorDestination = gameObject.name;
-            GameManager.Instance.playerChangingMap = true;
+            GameManager.instance.doorDestination = gameObject.name;
+            GameManager.instance.playerChangingMap = true;
             SceneManager.LoadSceneAsync(sceneDestination, LoadSceneMode.Single);
         }
     }

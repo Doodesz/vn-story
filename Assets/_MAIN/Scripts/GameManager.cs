@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager instance;
 
     [Header("Debugging")]
     public string doorDestination;
@@ -11,12 +11,12 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null)
+        if (instance != null)
         {
             Destroy(this.gameObject);
             return;
         }
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
 

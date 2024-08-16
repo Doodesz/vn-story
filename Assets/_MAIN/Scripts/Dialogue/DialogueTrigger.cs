@@ -33,10 +33,12 @@ public class DialogueLine // Contains only for the text data
 [System.Serializable]
 public class Dialogue
 {
+    [Tooltip("Used for idle or single dialogues. Disregards taskIndex and forPostTask variable if this is checked.")]
+    public bool isNeutral;
     [Tooltip("Which task (in index) will trigger this dialogue. Must be unique.")] 
-        public int taskIndex;
+    public int taskIndex;
     [Tooltip("Whether or not this dialogue triggers after taskIndex task is completed")]
-        public bool forPostTask;
+    public bool forPostTask;
 
     public List<DialogueLine> dialogueLines = new List<DialogueLine>();
 }
@@ -47,7 +49,7 @@ public class DialogueTrigger : MonoBehaviour
     [Tooltip("First element must be neutral as it's for a fallback when no dialogue conditions are fulfilled")]
     public List<Dialogue> dialogues;
 
-    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false)
+    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false, bool neutral = false)
     {
         Dialogue dialogueToTrigger = null;
 
@@ -65,11 +67,29 @@ public class DialogueTrigger : MonoBehaviour
             {
                 if (isCurrentTask)
                 {
-                    DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject, 0);
+                    DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject,  
+                        dialogues.IndexOf(GetTaskDialogue()));
                     return;
                 }
             }
 
+            // Triggers neutral dialogue
+            {
+                int i = 0;
+                bool hasTriggered = false;
+                if (neutral)
+                    foreach (Dialogue dialogue in dialogues)
+                    {
+                        if (dialogue.isNeutral)
+                        {
+                            if (!hasTriggered)
+                                DialogueManager.instance.StartDialogue(dialogue, gameObject, i);
+                            else
+                                Debug.LogError("Multiple neutral dialogue found. Only executing the lowest index");
+                            i++;
+                        }
+                    }
+            }
 
             int thisLastTaskIndex = (TasksManager.instance.GetLatestTaskFor(GetComponent<TaskObject>()));
 
@@ -91,14 +111,14 @@ public class DialogueTrigger : MonoBehaviour
                         Debug.Log("Post Task Dialogue index found: " +  dialogues.IndexOf(dialogueToTrigger));
                     }
                 }
-                DialogueManager.instance.StartDialogue(dialogueToTrigger, gameObject, startLine);
+                DialogueManager.instance.StartDialogue(dialogueToTrigger, gameObject, 
+                    dialogues.IndexOf(dialogueToTrigger), startLine);
                 return;
             }
         }
         
         // Default trigger (also for resuming last save)
-        DialogueManager.instance.StartDialogue(dialogues[dialogueIndex], gameObject, startLine);
-
+        DialogueManager.instance.StartDialogue(dialogues[dialogueIndex], gameObject, dialogueIndex, startLine);
         if (resumingLastDialogue) resumingLastDialogue = false;
     }
 

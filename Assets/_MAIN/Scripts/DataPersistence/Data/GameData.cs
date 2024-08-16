@@ -11,6 +11,7 @@ public class GameData
     public bool playerInControl;
     public bool isInDialogue;
     public bool isFirstTimeInScene;
+    public bool hasPendingTaskListUpdate;
     public int objectiveIndex;
     public int lastDialogueIndex;
     public int lastDialogueLineIndex;
@@ -25,17 +26,17 @@ public class GameData
     // the game starts with when there's no data to load
     public GameData() 
     {
+        playerPosition = Vector3.zero;
         playerInControl = true;
+        isInDialogue = false;
+        isFirstTimeInScene = true;
         objectiveIndex = 0;
         lastDialogueIndex = 0;
         lastDialogueLineIndex = 0;
         lastTaskIndex = 0;
-        playerPosition = Vector3.zero;
         npcBeingInteracted = null;
-        isInDialogue = false;
         sceneName = "Prologue";
         currentArea = "0";
-        isFirstTimeInScene = true;
         taskItemsList = new List<TaskItem>();
         taskObjectsDictionary = new SerializableDictionary<string, bool>();
     }

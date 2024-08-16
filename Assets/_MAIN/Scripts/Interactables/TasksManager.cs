@@ -20,7 +20,7 @@ public class TasksManager : MonoBehaviour, IDataPersistence
 
     [Header("Task Items")]
     public int currTaskIndex = 0;
-        [Tooltip("Index next to each other MUST NOT have the same TaskObject")]
+        [Tooltip("Index next to each other MUST NOT have the same TaskObject. Tasks must be IN ORDER.")]
     public List<TaskItem> taskItemsList;
     public TaskItem currTaskItem;
 
@@ -48,17 +48,20 @@ public class TasksManager : MonoBehaviour, IDataPersistence
     {
         if (incrementTaskIndex) ++currTaskIndex;
 
-        List<TaskObject> taskObjectsList = new (FindObjectsOfType<TaskObject>());
+        List<TaskObject> taskObjectsList = new(FindObjectsOfType<TaskObject>());
 
-        int i = 0;
-        foreach (TaskItem taskItem in taskItemsList)
-        {
-            if (i < currTaskIndex) taskItem.isCompleted = taskItem.taskObject.isCompleted;
-            i++;
+        {   // Updates taskItem list based on the objects on scene states
+            int i = 0;
+            foreach (TaskItem taskItem in taskItemsList)
+            {
+                if (i < currTaskIndex) taskItem.isCompleted = taskItem.taskObject.isCompleted;
+                i++;
+            } 
         }
 
         currTaskItem = GetCurrentTask();
 
+        // Updates task instruction text
         if (currTaskItem == null)
         {
             taskText.text = "Error: No task item found";
@@ -66,7 +69,9 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         }
         else 
             taskText.text = currTaskItem.taskName;
-            taskIndicator.transform.position = currTaskItem.taskObject.gameObject.transform.GetChild(0).transform.position;
+        
+        // Updates task indicator position
+        taskIndicator.transform.position = currTaskItem.taskObject.gameObject.transform.GetChild(0).transform.position;
     }
 
     public TaskItem GetCurrentTask()
@@ -92,28 +97,43 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         }
 
         // Throws warning log when task is not found in scene
-        Debug.LogWarning("Failed to get current task");
+        Debug.LogError("Failed to get current task");
         return null;
     }
 
-    // Returns the latest completed task for an object
+    // Returns the latest completed task (in index) of an object
     public int GetLatestTaskFor(TaskObject taskObject)
     {
         int i = 0;
+        int index = 0;
+        bool taskFound = false;
 
+        // Finds task of the matching object that are completed
         foreach (TaskItem task in taskItemsList)
         {
-            if (task.isCompleted && taskObject == task.taskObject) { break; }
+            // Breaks upon meeting an incomplete task of that matching object
+            if (task.isCompleted && taskObject == task.taskObject)
+            {
+                taskFound = true;
+                index = i;
+            }
+            else if (!task.isCompleted && taskObject == task.taskObject)
+                break;
             i++;
         }
 
-        if (i == taskItemsList.Count)
+        // Throws an exception when reaching end of list without
+        // finding a match and assigns default value of 0
+        if (!taskFound)
         {
             i = 0;
-            Debug.LogWarning("Latest related task not found. Returning 0 value");
+            Debug.LogWarning("Latest incomplete related task not found. Returning 0 value");
+            return i;
         }
-        Debug.Log("Last task index was " + i);
-        return i;
+
+        Debug.Log("Last task index of " + taskObject + " was " + index + " with value of "
+            + taskItemsList[index].isCompleted);
+        return index;
     }
 
     public bool IsTaskIndexCompleted(int taskIndex)

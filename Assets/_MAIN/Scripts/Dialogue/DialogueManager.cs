@@ -84,7 +84,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void StartDialogue(Dialogue dialogue, GameObject gameObject, int startLine = 0)
+    public void StartDialogue(Dialogue dialogue, GameObject gameObject, int dialogueIndex, int startLine = 0)
     {
         // If last scene and loaded scene mismatch on last save during a dialogue
         if (playerController == null)
@@ -100,6 +100,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         playerController.isPlayerInControl = false;
         illustrationImageObject.sprite = null;
         illustrationTransitionObject.sprite = null;
+        currentDialogueIndex = dialogueIndex;
 
         dialogueScreenAnimator.Play("show");
 
@@ -133,6 +134,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         portraitImage.sprite = currentLine.data.portrait;
         characterName.text = currentLine.data.name;
+        AddNewConversationLog(currentLine.data.name, currentLine.line);
         //characterIconRight.sprite = currentLine.data.rightIcon; // unused
 
         if (currentLine.data.action != LineAction.None)
@@ -141,7 +143,6 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         }
 
         StartCoroutine(TypeSentence(currentLine, currentLine.data.typingInterval * typeSpdMultiplierPref));
-        AddNewConversationLog(currentLine.data.name, currentLine.line);
     }
 
     private void TriggerDialogueAction(DialogueLine dialogueLine)
@@ -154,6 +155,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         else if (dialogueLine.data.action == LineAction.GoToScene)
         {
             // LoadScene... used later
+            // save with isfirsttime in scene on true
         }
     }
 
@@ -293,6 +295,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             data.lastDialogueIndex = 0;
             data.npcBeingInteracted = null;
             data.isInDialogue = false;
+            data.hasPendingTaskListUpdate = false;
         }        
         else
         {
@@ -300,6 +303,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             data.lastDialogueLineIndex = this.currentLineIndex;
             data.lastDialogueIndex = this.currentDialogueIndex;
             data.isInDialogue = true;
+            data.hasPendingTaskListUpdate = this.hasPendingTaskListUpdate;
         }
     }
 
@@ -309,6 +313,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         this.currentDialogueIndex = data.lastDialogueIndex;
         this.isInDialogue = data.isInDialogue;
         this.npcBeingInteracted = GameObject.Find(data.npcBeingInteracted);
+        this.hasPendingTaskListUpdate = data.hasPendingTaskListUpdate;
 
         if (isInDialogue) 
             LoadLastConversation();
