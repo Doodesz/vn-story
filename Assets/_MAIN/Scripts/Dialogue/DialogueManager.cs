@@ -213,7 +213,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         if (hasPendingTaskListUpdate)
         {
-            TasksManager.instance.UpdateTaskItemsList();
+            TasksManager.instance.UpdateTaskItemsList(true);
             hasPendingTaskListUpdate = false;
         }
 

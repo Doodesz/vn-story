@@ -14,6 +14,7 @@ public class GameData
     public int objectiveIndex;
     public int lastDialogueIndex;
     public int lastDialogueLineIndex;
+    public int lastTaskIndex;
     public string npcBeingInteracted;
     public string sceneName;
     public string currentArea;
@@ -28,6 +29,7 @@ public class GameData
         objectiveIndex = 0;
         lastDialogueIndex = 0;
         lastDialogueLineIndex = 0;
+        lastTaskIndex = 0;
         playerPosition = Vector3.zero;
         npcBeingInteracted = null;
         isInDialogue = false;

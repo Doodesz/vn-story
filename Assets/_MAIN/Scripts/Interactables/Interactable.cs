@@ -37,41 +37,15 @@ public class Interactable : MonoBehaviour
         switch (thisInteractableType)
         {
             case InteractableType.Dialogue:
-                if (tasksManager.GetCurrentTask() == null)
-                {
-                    Debug.LogError("Failed to fetch current task. Triggering default value dialogue");
-                    GetComponent<DialogueTrigger>().TriggerDialogue();
-                }
-
-                else if (hasTaskObjectAttached && tasksManager.GetCurrentTask().taskObject != null)
-                {
-                    if (tasksManager.GetCurrentTask().taskObject == taskObject)
-                    {
-                        GetComponent<DialogueTrigger>().TriggerDialogue(dialogueIndex: 1);
-                        break;
-                    }
-                    else if (taskObject.isCompleted)
-                    {
-                        GetComponent<DialogueTrigger>().TriggerDialogue(dialogueIndex: 2);
-                        break;
-                    }
-                }
-
-                else
-                {
-                    Debug.LogError("No conditions fulfilled interactable dialogue");
-                    break;
-                }
-
                 GetComponent<DialogueTrigger>().TriggerDialogue();
-                break;
-
+                    break;
+                
             case InteractableType.SwitchScenes:
                 SwitchScene();
                 break;
 
             case InteractableType.ChangeArea:
-                // switch scene code here
+                // switch area code here
                 Debug.LogWarning("InteractableType.ChangeArea has not yet been coded.");
                 break;
 

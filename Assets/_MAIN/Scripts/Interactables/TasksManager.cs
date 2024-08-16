@@ -19,6 +19,8 @@ public class TasksManager : MonoBehaviour, IDataPersistence
     public GameObject taskIndicator;
 
     [Header("Task Items")]
+    public int currTaskIndex = 0;
+        [Tooltip("Index next to each other MUST NOT have the same TaskObject")]
     public List<TaskItem> taskItemsList;
     public TaskItem currTaskItem;
 
@@ -28,9 +30,9 @@ public class TasksManager : MonoBehaviour, IDataPersistence
     {
         instance = this;
 
-        foreach (TaskItem simpleTaskItem in taskItemsList)
+        foreach (TaskItem taskItem in taskItemsList)
         {
-            simpleTaskItem.taskObjectName = simpleTaskItem.taskObject.gameObject.name;
+            taskItem.taskObjectName = taskItem.taskObject.gameObject.name;
         }
 
         currTaskItem = GetCurrentTask();
@@ -42,24 +44,29 @@ public class TasksManager : MonoBehaviour, IDataPersistence
     }
 
     // Updates the taskitems list
-    public void UpdateTaskItemsList()
+    public void UpdateTaskItemsList(bool incrementTaskIndex = false)
     {
+        if (incrementTaskIndex) ++currTaskIndex;
+
+        List<TaskObject> taskObjectsList = new (FindObjectsOfType<TaskObject>());
+
+        int i = 0;
         foreach (TaskItem taskItem in taskItemsList)
         {
-            taskItem.isCompleted = taskItem.taskObject.isCompleted;
+            if (i < currTaskIndex) taskItem.isCompleted = taskItem.taskObject.isCompleted;
+            i++;
         }
 
         currTaskItem = GetCurrentTask();
 
         if (currTaskItem == null)
         {
-            taskText.text = "Error no task item found";
+            taskText.text = "Error: No task item found";
             return;
         }
         else 
             taskText.text = currTaskItem.taskName;
             taskIndicator.transform.position = currTaskItem.taskObject.gameObject.transform.GetChild(0).transform.position;
-
     }
 
     public TaskItem GetCurrentTask()
@@ -78,7 +85,7 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         }
 
         // Throws warning log if there are no more uncompleted task
-        if (taskItemsList.Count == count)
+        if (taskItemsList.Count >= count)
         {
             Debug.LogWarning("All tasks are completed");
             return null;
@@ -87,6 +94,27 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         // Throws warning log when task is not found in scene
         Debug.LogWarning("Failed to get current task");
         return null;
+    }
+
+    // Returns the latest completed task for an object
+    public int GetLatestTaskFor(TaskObject taskObject)
+    {
+        int i = 0;
+
+        foreach (TaskItem task in taskItemsList)
+        {
+            i++;
+            if (task.taskObject == taskObject && task.isCompleted) break;
+        }
+
+        Debug.Log("Last task index was " + i);
+        return i;
+    }
+
+    public bool IsTaskIndexCompleted(int taskIndex)
+    {
+        TaskItem taskItem = taskItemsList[taskIndex];
+        return taskItem.isCompleted;
     }
 
     public void SaveData(GameData data)

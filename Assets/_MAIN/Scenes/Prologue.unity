@@ -707,8 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasMultipleDialogues: 0
-  dialogue: []
+  dialogues: []
 --- !u!212 &210285539
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1749,8 +1748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasMultipleDialogues: 0
-  dialogue: []
+  dialogues: []
 --- !u!114 &624933097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1784,6 +1782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskText: {fileID: 1385695101}
   taskIndicator: {fileID: 637618034}
+  currTaskIndex: 0
   taskItemsList:
   - taskObject: {fileID: 1413344137}
     taskObjectName: 
@@ -1792,6 +1791,10 @@ MonoBehaviour:
   - taskObject: {fileID: 1531852957}
     taskObjectName: 
     taskName: Talk to Aiko
+    isCompleted: 0
+  - taskObject: {fileID: 1413344137}
+    taskObjectName: 
+    taskName: Talk to Kanami
     isCompleted: 0
   currTaskItem:
     taskObject: {fileID: 0}
@@ -1824,7 +1827,7 @@ Transform:
   m_GameObject: {fileID: 637618034}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.39, y: 1.47, z: 0}
+  m_LocalPosition: {x: -11.6, y: -4.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2009,8 +2012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasMultipleDialogues: 0
-  dialogue: []
+  dialogues: []
 --- !u!212 &654104107
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2143,6 +2145,7 @@ MonoBehaviour:
   illustrationAnimator: {fileID: 0}
   isInDialogue: 0
   isTyping: 0
+  hasPendingTaskListUpdate: 0
   currentLineIndex: 0
   npcBeingInteracted: {fileID: 0}
   isIllustHidden: 1
@@ -3851,13 +3854,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1413344136}
-  - component: {fileID: 1413344135}
   - component: {fileID: 1413344134}
   - component: {fileID: 1413344132}
+  - component: {fileID: 1413344137}
+  - component: {fileID: 1413344135}
   - component: {fileID: 1413344133}
   - component: {fileID: 1413344131}
   - component: {fileID: 1413344130}
-  - component: {fileID: 1413344137}
   m_Layer: 0
   m_Name: Kanami
   m_TagString: Interactable
@@ -3970,20 +3973,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasMultipleDialogues: 0
-  dialogue:
-  - dialogueLines:
+  dialogues:
+  - taskIndex: 0
+    forPostTask: 0
+    dialogueLines:
     - data:
-        name: a
+        name: kanami
         portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
         portraitAnim: {fileID: 0}
         typingInterval: 0
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: apaluwh mau main?
+      line: ayo main
     - data:
-        name: reiharu
+        name: rei
         portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
         portraitAnim: {fileID: 0}
         typingInterval: 0
@@ -3992,16 +3996,16 @@ MonoBehaviour:
         sceneDestinationName: 
       line: (main)
     - data:
-        name: a
+        name: kanami
         portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
         portraitAnim: {fileID: 0}
         typingInterval: 0
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: pulang sana
+      line: sana pulang
     - data:
-        name: reiharu
+        name: rei
         portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
         portraitAnim: {fileID: 0}
         typingInterval: 0
@@ -4009,6 +4013,18 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: oke
+  - taskIndex: 0
+    forPostTask: 1
+    dialogueLines:
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: udah main kan tadi
 --- !u!212 &1413344135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4793,9 +4809,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasMultipleDialogues: 1
-  dialogue:
-  - dialogueLines:
+  dialogues:
+  - taskIndex: 1
+    forPostTask: 0
+    dialogueLines:
     - data:
         name: aiko
         portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
@@ -4804,53 +4821,7 @@ MonoBehaviour:
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: apaluh
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: sana main sama kanami
-    - data:
-        name: rei
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: oke
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: hmph
-  - dialogueLines:
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: kenapa
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: udah?
+      line: udah main ama kanami?
     - data:
         name: rei
         portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
@@ -4868,35 +4839,7 @@ MonoBehaviour:
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: hmph
-  - dialogueLines:
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: kenapa? udah main kan?
-    - data:
-        name: rei
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: udh
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: ywdh
+      line: yaudah skrg main samaku
     - data:
         name: rei
         portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
@@ -4906,6 +4849,54 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: oke
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: (main)
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: sana pulang
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: oke
+  - taskIndex: 1
+    forPostTask: 1
+    dialogueLines:
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: kenapa?
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: tadi udah main loh
 --- !u!61 &1531852953
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6238,8 +6229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasMultipleDialogues: 0
-  dialogue: []
+  dialogues: []
 --- !u!212 &1918667418
 SpriteRenderer:
   m_ObjectHideFlags: 0

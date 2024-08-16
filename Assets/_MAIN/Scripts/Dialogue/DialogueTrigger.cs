@@ -32,33 +32,69 @@ public class DialogueLine // Contains only for the text data
 [System.Serializable]
 public class Dialogue
 {
+    [Tooltip("Which task (in index) will trigger this dialogue. Must be unique.")] 
+        public int taskIndex;
+    [Tooltip("Whether or not this dialogue triggers after taskIndex task is completed")]
+        public bool forPostTask;
+
     public List<DialogueLine> dialogueLines = new List<DialogueLine>();
 }
 
 [RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
-    [Tooltip("Uncheck this to ignore dialogue index out of range warning message." +
-        "Also forces every triggerdialogue calls dialogueindex to 0")]
-    [SerializeField] bool hasMultipleDialogues = false;
-
-    [Tooltip("0: Default, 1: Triggers when this is the current task, 2: Triggers when this is a completed task")]
-    public List<Dialogue> dialogue;
-
+    public List<Dialogue> dialogues;
 
     public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0)
     {
-        // When the dialogues count is below the called index or doesn't have multiple dialogues
-        if (dialogue.Count < dialogueIndex-1 || !hasMultipleDialogues)
-        {
-            // Sets index to default (0)
-            dialogueIndex = default;
+        bool isCurrentTask = false;
+        int thisLastTaskIndex = (TasksManager.instance.GetLatestTaskFor(GetComponent<TaskObject>()));
+        
+        // Checks if current task object is this object
+        if (TasksManager.instance.GetCurrentTask() != null) // Exception
+            if (TasksManager.instance.currTaskItem.taskObject == GetComponent<TaskObject>())
+                isCurrentTask = true;
 
-            // Logs a warning if there are multiple dialogues but dialogue count is below called index (out of range)
-            if(hasMultipleDialogues)
-                Debug.LogWarning("Dialogue index out of range, assigning default value");
+        // Finds and triggers task dialogue if this is the current task
+        foreach (Dialogue dialogue in dialogues)
+        {
+            if (isCurrentTask)
+            {
+                DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject, 0);
+                return;
+            }
+        }
+
+        // Finds and sets dialogueIndex that contains dialogue for post task shits
+        if (thisLastTaskIndex < TasksManager.instance.currTaskIndex)
+        {
+            int i = 0;
+            Debug.Log("line hits");
+
+            foreach (Dialogue dialogue in dialogues)
+            {
+                if (dialogue.forPostTask == true)
+                {
+                    dialogueIndex = i;
+                    Debug.Log("Post Task Dialogue found: " +  dialogueIndex);
+                }
+                i++;
+            }
         }
         
-        DialogueManager.instance.StartDialogue(dialogue[dialogueIndex], gameObject, startLine);
+        // Default trigger (also for resuming last save)
+        DialogueManager.instance.StartDialogue(dialogues[dialogueIndex], gameObject, startLine);
+    }
+
+    private Dialogue GetTaskDialogue()
+    {
+        foreach (Dialogue dialogue in dialogues)
+        {
+            if (dialogue.taskIndex == TasksManager.instance.currTaskIndex)
+                return dialogue;
+        }
+
+        Debug.Log("No matching task index in dialogues. Returning index default 0");
+        return dialogues[0];
     }
 }
