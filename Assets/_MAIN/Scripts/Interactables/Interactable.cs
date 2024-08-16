@@ -13,7 +13,7 @@ public class Interactable : MonoBehaviour
     public string sceneDestination;
     public string areaDestination;
     public bool triggerOnTriggerEnter = false;
-
+    
     [SerializeField] TaskObject taskObject;
     [SerializeField] TasksManager tasksManager;
     [SerializeField] bool hasTaskObjectAttached;
@@ -88,7 +88,9 @@ public class Interactable : MonoBehaviour
                 Debug.LogWarning("Task object " + taskObject + " has already been completed");
 
             taskObject.isCompleted = true;
-            tasksManager.UpdateTaskItemsList();
+
+            if (thisInteractableType == InteractableType.Dialogue)
+                DialogueManager.instance.hasPendingTaskListUpdate = true;
         }
     }
 

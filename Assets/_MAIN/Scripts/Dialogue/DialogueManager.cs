@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour, IDataPersistence
 {
-    public static DialogueManager Instance;
+    public static DialogueManager instance;
 
     [Header("Assign GameObjects")]
     public TextMeshProUGUI characterName;
@@ -32,10 +32,12 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [Header("Current State")]
     public bool isInDialogue = false;
     public bool isTyping = false;
+    public bool hasPendingTaskListUpdate = false;
     [SerializeField] private int currentLineIndex = 0;
     [SerializeField] private GameObject npcBeingInteracted;
     [SerializeField] private bool isIllustHidden = true;
     [SerializeField] private bool isSwitchingIllust;
+    
     float switchingIllustTimeoutTimer;
 
     [Header("Mod")]
@@ -46,8 +48,8 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     // Bug fix: Resets all variables first
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
+        if (instance == null)
+            instance = this;
 
         lines = new Queue<DialogueLine>();
 
@@ -208,6 +210,12 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         ClearConversationLog();
         HideDialogueScreen();
+
+        if (hasPendingTaskListUpdate)
+        {
+            TasksManager.instance.UpdateTaskItemsList();
+            hasPendingTaskListUpdate = false;
+        }
 
         DataPersistenceManager.Instance.SaveGame(); // Fix bug + autosave coy awowakw
     }

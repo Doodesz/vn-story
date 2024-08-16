@@ -38,7 +38,8 @@ public class Dialogue
 [RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
-    [Tooltip("Uncheck this to ignore dialogue index out of range warning message")]
+    [Tooltip("Uncheck this to ignore dialogue index out of range warning message." +
+        "Also forces every triggerdialogue calls dialogueindex to 0")]
     [SerializeField] bool hasMultipleDialogues = false;
 
     [Tooltip("0: Default, 1: Triggers when this is the current task, 2: Triggers when this is a completed task")]
@@ -58,6 +59,6 @@ public class DialogueTrigger : MonoBehaviour
                 Debug.LogWarning("Dialogue index out of range, assigning default value");
         }
         
-        DialogueManager.Instance.StartDialogue(dialogue[dialogueIndex], gameObject, startLine);
+        DialogueManager.instance.StartDialogue(dialogue[dialogueIndex], gameObject, startLine);
     }
 }

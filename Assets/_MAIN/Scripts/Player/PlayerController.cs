@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public bool PlayerInControl()
     {
-        if (isPlayerInControl && !DialogueManager.Instance.isInDialogue && !UIManager.instance.isOnCoveredScreenUI)
+        if (isPlayerInControl && !DialogueManager.instance.isInDialogue && !UIManager.instance.isOnCoveredScreenUI)
             return true;
         else
         {

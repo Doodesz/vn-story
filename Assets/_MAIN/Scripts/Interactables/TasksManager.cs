@@ -16,6 +16,7 @@ public class TasksManager : MonoBehaviour, IDataPersistence
 {
     [Header("Assign GameObjects")]
     public TextMeshProUGUI taskText;
+    public GameObject taskIndicator;
 
     [Header("Task Items")]
     public List<TaskItem> taskItemsList;
@@ -50,13 +51,15 @@ public class TasksManager : MonoBehaviour, IDataPersistence
 
         currTaskItem = GetCurrentTask();
 
-        taskText.text = currTaskItem.taskName;
-
         if (currTaskItem == null)
         {
-            taskText.text = "teks error ini, task udh selesai semua";
+            taskText.text = "Error no task item found";
             return;
         }
+        else 
+            taskText.text = currTaskItem.taskName;
+            taskIndicator.transform.position = currTaskItem.taskObject.gameObject.transform.GetChild(0).transform.position;
+
     }
 
     public TaskItem GetCurrentTask()
