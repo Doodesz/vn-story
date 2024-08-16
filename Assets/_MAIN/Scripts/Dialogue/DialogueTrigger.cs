@@ -49,7 +49,8 @@ public class DialogueTrigger : MonoBehaviour
 
     public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false)
     {
-        
+        Dialogue dialogueToTrigger = null;
+
         if (!resumingLastDialogue)
         {
             bool isCurrentTask = false;
@@ -75,30 +76,37 @@ public class DialogueTrigger : MonoBehaviour
             // Finds and sets dialogueIndex that contains dialogue for post task shits
             if (thisLastTaskIndex < TasksManager.instance.currTaskIndex)
             {
-                int i = 0;
-
-                Debug.Log("Line hits");
+                // Finds every dialogue that has passed the task index and has a true postTask value
                 foreach (Dialogue dialogue in dialogues)
                 {
-                    if (dialogue.forPostTask && i <= TasksManager.instance.currTaskIndex)
+                    if (dialogue.taskIndex <= TasksManager.instance.currTaskIndex && dialogue.forPostTask == true)
                     {
-                        dialogueIndex = i;
-                        Debug.Log("Post Task Dialogue index found: " +  dialogueIndex);
+                        if (dialogueToTrigger == null)
+                            dialogueToTrigger = dialogue;
+
+                        // Changes dialogueToTrigger to the newer index of task dialogue
+                        else if (dialogue.taskIndex > dialogueToTrigger.taskIndex)
+                            dialogueToTrigger = dialogue;
+
+                        Debug.Log("Post Task Dialogue index found: " +  dialogues.IndexOf(dialogueToTrigger));
                     }
-                    i++;
                 }
+                DialogueManager.instance.StartDialogue(dialogueToTrigger, gameObject, startLine);
+                return;
             }
         }
         
         // Default trigger (also for resuming last save)
         DialogueManager.instance.StartDialogue(dialogues[dialogueIndex], gameObject, startLine);
+
+        if (resumingLastDialogue) resumingLastDialogue = false;
     }
 
     private Dialogue GetTaskDialogue()
     {
         foreach (Dialogue dialogue in dialogues)
         {
-            if (dialogue.taskIndex == TasksManager.instance.currTaskIndex)
+            if (dialogue.taskIndex == TasksManager.instance.currTaskIndex && !dialogue.forPostTask)
                 return dialogue;
         }
 

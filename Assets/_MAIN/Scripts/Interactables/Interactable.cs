@@ -55,17 +55,17 @@ public class Interactable : MonoBehaviour
 
         // Order of execution is important, this is put down below because it needs to trigger the interaction first before updating object
         // Sets complete if this interactable is the current task
-        if (hasTaskObjectAttached && tasksManager.currTaskItem.taskObject != null) 
+        if (tasksManager.currTaskItem != null) 
             if (tasksManager.currTaskItem.taskObject == taskObject)
-        {
-            if (taskObject.isCompleted)
-                Debug.LogWarning("Task object " + taskObject + " has already been completed");
+            {
+                if (taskObject.isCompleted)
+                    Debug.LogWarning("Task object " + taskObject + " has already been completed");
 
-            taskObject.isCompleted = true;
+                taskObject.isCompleted = true;
 
-            if (thisInteractableType == InteractableType.Dialogue)
-                DialogueManager.instance.hasPendingTaskListUpdate = true;
-        }
+                if (thisInteractableType == InteractableType.Dialogue)
+                    DialogueManager.instance.hasPendingTaskListUpdate = true;
+            }
     }
 
     private void SwitchScene()

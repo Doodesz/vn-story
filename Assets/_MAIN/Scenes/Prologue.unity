@@ -3976,18 +3976,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - taskIndex: 0
-    forPostTask: 1
-    dialogueLines:
-    - data:
-        name: kanami
-        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: ada apa rei?
-  - taskIndex: 0
     forPostTask: 0
     dialogueLines:
     - data:
@@ -4026,7 +4014,7 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: oke
-  - taskIndex: 0
+  - taskIndex: 2
     forPostTask: 1
     dialogueLines:
     - data:
@@ -4037,7 +4025,7 @@ MonoBehaviour:
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: udah main kan tadi
+      line: udah atuh udah amaku duakali, aiko sekali
   - taskIndex: 2
     forPostTask: 0
     dialogueLines:
@@ -4077,7 +4065,7 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: yaudah ayo
-  - taskIndex: 2
+  - taskIndex: 0
     forPostTask: 1
     dialogueLines:
     - data:
@@ -4088,7 +4076,7 @@ MonoBehaviour:
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: udah atuh udah amaku duakali, aiko sekali
+      line: udah main kan tadi
 --- !u!212 &1413344135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4896,6 +4884,27 @@ MonoBehaviour:
         sceneDestinationName: 
       line: sana sama kanami dlu
   - taskIndex: 1
+    forPostTask: 1
+    dialogueLines:
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: kenapa?
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: tadi udah main loh
+  - taskIndex: 1
     forPostTask: 0
     dialogueLines:
     - data:
@@ -4961,27 +4970,6 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: oke
-  - taskIndex: 1
-    forPostTask: 1
-    dialogueLines:
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: kenapa?
-    - data:
-        name: aiko
-        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
-        portraitAnim: {fileID: 0}
-        typingInterval: 0
-        action: 0
-        illustration: {fileID: 0}
-        sceneDestinationName: 
-      line: tadi udah main loh
 --- !u!61 &1531852953
 BoxCollider2D:
   m_ObjectHideFlags: 0
