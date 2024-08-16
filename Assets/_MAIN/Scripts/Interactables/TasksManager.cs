@@ -103,10 +103,15 @@ public class TasksManager : MonoBehaviour, IDataPersistence
 
         foreach (TaskItem task in taskItemsList)
         {
+            if (task.isCompleted && taskObject == task.taskObject) { break; }
             i++;
-            if (task.taskObject == taskObject && task.isCompleted) break;
         }
 
+        if (i == taskItemsList.Count)
+        {
+            i = 0;
+            Debug.LogWarning("Latest related task not found. Returning 0 value");
+        }
         Debug.Log("Last task index was " + i);
         return i;
     }
@@ -122,6 +127,7 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         UpdateTaskItemsList();
 
         data.taskItemsList = this.taskItemsList;
+        data.lastTaskIndex = this.currTaskIndex;
     }
 
     public void LoadData(GameData data)
@@ -129,6 +135,7 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         if (!FirstTimeScene.instance.isFirstTimeInScene)
         {
             this.taskItemsList = data.taskItemsList;
+            this.currTaskIndex = data.lastTaskIndex;
 
             foreach (TaskItem item in this.taskItemsList)
             {

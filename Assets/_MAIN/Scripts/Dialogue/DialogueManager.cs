@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public bool isTyping = false;
     public bool hasPendingTaskListUpdate = false;
     [SerializeField] private int currentLineIndex = 0;
+    [SerializeField] private int currentDialogueIndex = 0;
     [SerializeField] private GameObject npcBeingInteracted;
     [SerializeField] private bool isIllustHidden = true;
     [SerializeField] private bool isSwitchingIllust;
@@ -289,6 +290,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         if (npcBeingInteracted == null)
         {
             data.lastDialogueLineIndex = 0;
+            data.lastDialogueIndex = 0;
             data.npcBeingInteracted = null;
             data.isInDialogue = false;
         }        
@@ -296,6 +298,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         {
             data.npcBeingInteracted = this.npcBeingInteracted.name;
             data.lastDialogueLineIndex = this.currentLineIndex;
+            data.lastDialogueIndex = this.currentDialogueIndex;
             data.isInDialogue = true;
         }
     }
@@ -303,6 +306,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.currentLineIndex = data.lastDialogueLineIndex;
+        this.currentDialogueIndex = data.lastDialogueIndex;
         this.isInDialogue = data.isInDialogue;
         this.npcBeingInteracted = GameObject.Find(data.npcBeingInteracted);
 
@@ -312,7 +316,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     public void LoadLastConversation()
     {
-        npcBeingInteracted.GetComponent<DialogueTrigger>().TriggerDialogue(currentLineIndex);
+        npcBeingInteracted.GetComponent<DialogueTrigger>().TriggerDialogue(currentLineIndex, currentDialogueIndex, resumingLastDialogue: true);
         if (npcBeingInteracted == null) Debug.Log("Referenced npcBeingInteracted GameObject not found");
     }
 }

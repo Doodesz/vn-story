@@ -2147,6 +2147,7 @@ MonoBehaviour:
   isTyping: 0
   hasPendingTaskListUpdate: 0
   currentLineIndex: 0
+  currentDialogueIndex: 0
   npcBeingInteracted: {fileID: 0}
   isIllustHidden: 1
   isSwitchingIllust: 0
@@ -3975,6 +3976,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogues:
   - taskIndex: 0
+    forPostTask: 1
+    dialogueLines:
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: ada apa rei?
+  - taskIndex: 0
     forPostTask: 0
     dialogueLines:
     - data:
@@ -4025,6 +4038,57 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: udah main kan tadi
+  - taskIndex: 2
+    forPostTask: 0
+    dialogueLines:
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: loh kenapa
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: mau main lagi?
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: mau
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: yaudah ayo
+  - taskIndex: 2
+    forPostTask: 1
+    dialogueLines:
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: udah atuh udah amaku duakali, aiko sekali
 --- !u!212 &1413344135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4767,7 +4831,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a88c0ac955ea8744380d3ccbb468e726, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.90588236, g: 0.83137256, b: 0.8666667, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4810,6 +4874,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogues:
+  - taskIndex: 0
+    forPostTask: 0
+    dialogueLines:
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: apaluwh
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: sana sama kanami dlu
   - taskIndex: 1
     forPostTask: 0
     dialogueLines:

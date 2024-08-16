@@ -38,7 +38,7 @@ public class Interactable : MonoBehaviour
         {
             case InteractableType.Dialogue:
                 GetComponent<DialogueTrigger>().TriggerDialogue();
-                    break;
+                break;
                 
             case InteractableType.SwitchScenes:
                 SwitchScene();
@@ -55,8 +55,8 @@ public class Interactable : MonoBehaviour
 
         // Order of execution is important, this is put down below because it needs to trigger the interaction first before updating object
         // Sets complete if this interactable is the current task
-        if (hasTaskObjectAttached && tasksManager.currTaskItem != null
-            && tasksManager.currTaskItem.taskObject == taskObject)
+        if (hasTaskObjectAttached && tasksManager.currTaskItem.taskObject != null) 
+            if (tasksManager.currTaskItem.taskObject == taskObject)
         {
             if (taskObject.isCompleted)
                 Debug.LogWarning("Task object " + taskObject + " has already been completed");

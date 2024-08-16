@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // public enum PortraitAnim { None, BounceUpOnce, BounceUpTwice, BounceDownOnce, BounceDownTwice }
@@ -43,42 +44,49 @@ public class Dialogue
 [RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
+    [Tooltip("First element must be neutral as it's for a fallback when no dialogue conditions are fulfilled")]
     public List<Dialogue> dialogues;
 
-    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0)
+    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false)
     {
-        bool isCurrentTask = false;
-        int thisLastTaskIndex = (TasksManager.instance.GetLatestTaskFor(GetComponent<TaskObject>()));
         
-        // Checks if current task object is this object
-        if (TasksManager.instance.GetCurrentTask() != null) // Exception
-            if (TasksManager.instance.currTaskItem.taskObject == GetComponent<TaskObject>())
-                isCurrentTask = true;
-
-        // Finds and triggers task dialogue if this is the current task
-        foreach (Dialogue dialogue in dialogues)
+        if (!resumingLastDialogue)
         {
-            if (isCurrentTask)
-            {
-                DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject, 0);
-                return;
-            }
-        }
+            bool isCurrentTask = false;
 
-        // Finds and sets dialogueIndex that contains dialogue for post task shits
-        if (thisLastTaskIndex < TasksManager.instance.currTaskIndex)
-        {
-            int i = 0;
-            Debug.Log("line hits");
-
+            // Checks if current task object is this object
+            if (TasksManager.instance.GetCurrentTask() != null) // Exception
+                if (TasksManager.instance.currTaskItem.taskObject == GetComponent<TaskObject>())
+                    isCurrentTask = true;
+            
+            // Finds and triggers task dialogue if this is the current task
             foreach (Dialogue dialogue in dialogues)
             {
-                if (dialogue.forPostTask == true)
+                if (isCurrentTask)
                 {
-                    dialogueIndex = i;
-                    Debug.Log("Post Task Dialogue found: " +  dialogueIndex);
+                    DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject, 0);
+                    return;
                 }
-                i++;
+            }
+
+
+            int thisLastTaskIndex = (TasksManager.instance.GetLatestTaskFor(GetComponent<TaskObject>()));
+
+            // Finds and sets dialogueIndex that contains dialogue for post task shits
+            if (thisLastTaskIndex < TasksManager.instance.currTaskIndex)
+            {
+                int i = 0;
+
+                Debug.Log("Line hits");
+                foreach (Dialogue dialogue in dialogues)
+                {
+                    if (dialogue.forPostTask && i <= TasksManager.instance.currTaskIndex)
+                    {
+                        dialogueIndex = i;
+                        Debug.Log("Post Task Dialogue index found: " +  dialogueIndex);
+                    }
+                    i++;
+                }
             }
         }
         
@@ -94,7 +102,7 @@ public class DialogueTrigger : MonoBehaviour
                 return dialogue;
         }
 
-        Debug.Log("No matching task index in dialogues. Returning index default 0");
+        Debug.LogWarning("No matching task index in dialogues. Returning index default 0");
         return dialogues[0];
     }
 }
