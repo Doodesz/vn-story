@@ -13,41 +13,82 @@ public class Interactable : MonoBehaviour
     public string sceneDestination;
     public string areaDestination;
     public bool triggerOnTriggerEnter = false;
-    
+
+    [SerializeField] TaskObject taskObject;
+    [SerializeField] TasksManager tasksManager;
     [SerializeField] bool hasTaskObjectAttached;
 
     private void Awake()
     {
         if (GetComponent<TaskObject>() != null)
+        {
             hasTaskObjectAttached = true;
+        }
+    }
+
+    private void Start()
+    {
+        taskObject = GetComponent<TaskObject>();
+        tasksManager = TasksManager.instance;    
     }
 
     public void TriggerInteraction()
     {
-        if (thisInteractableType == InteractableType.Dialogue)
+        switch (thisInteractableType)
         {
-            if (hasTaskObjectAttached)
-                GetComponent<DialogueTrigger>().TriggerDialogue(CheckDialogueIndexToTrigger());
-            else
+            case InteractableType.Dialogue:
+                if (tasksManager.GetCurrentTask() == null)
+                {
+                    Debug.LogError("Failed to fetch current task. Triggering default value dialogue");
+                    GetComponent<DialogueTrigger>().TriggerDialogue();
+                }
+
+                else if (hasTaskObjectAttached && tasksManager.GetCurrentTask().taskObject != null)
+                {
+                    if (tasksManager.GetCurrentTask().taskObject == taskObject)
+                    {
+                        GetComponent<DialogueTrigger>().TriggerDialogue(dialogueIndex: 1);
+                        break;
+                    }
+                    else if (taskObject.isCompleted)
+                    {
+                        GetComponent<DialogueTrigger>().TriggerDialogue(dialogueIndex: 2);
+                        break;
+                    }
+                }
+
+                else
+                {
+                    Debug.LogError("No conditions fulfilled interactable dialogue");
+                    break;
+                }
+
                 GetComponent<DialogueTrigger>().TriggerDialogue();
-        }
+                break;
 
-        else if (thisInteractableType == InteractableType.SwitchScenes)
-        {
-            SwitchScene();
-        }
+            case InteractableType.SwitchScenes:
+                SwitchScene();
+                break;
 
-        else if (thisInteractableType == InteractableType.ChangeArea)
-        {
-            Debug.Log("InteractableType.ChangeArea has not yet been coded.");
-            // ChangeArea(); // unused
+            case InteractableType.ChangeArea:
+                // switch scene code here
+                Debug.LogWarning("InteractableType.ChangeArea has not yet been coded.");
+                break;
+
+            default:
+                break;
         }
 
         // Order of execution is important, this is put down below because it needs to trigger the interaction first before updating object
-        if (hasTaskObjectAttached)
+        // Sets complete if this interactable is the current task
+        if (hasTaskObjectAttached && tasksManager.currTaskItem != null
+            && tasksManager.currTaskItem.taskObject == taskObject)
         {
-            GetComponent<TaskObject>().isCompleted = true;
-            TasksManager.instance.UpdateTaskItemsList();
+            if (taskObject.isCompleted)
+                Debug.LogWarning("Task object " + taskObject + " has already been completed");
+
+            taskObject.isCompleted = true;
+            tasksManager.UpdateTaskItemsList();
         }
     }
 
@@ -69,36 +110,5 @@ public class Interactable : MonoBehaviour
     public void HideInteractPrompt()
     {
         transform.GetChild(0).gameObject.SetActive(false);
-    }
-
-    private void TriggerDialogueBasedOnTaskCompleted()
-    {
-        // For every task item
-        foreach (TaskItem taskItem in TasksManager.instance.taskItemsList)
-        {
-            // Find the related game object in the targets task items
-            if (taskItem.targetObject == this.gameObject)
-            {
-                GetComponent<DialogueTrigger>().TriggerDialogue(taskItem.dialogueToTrigger);
-                break;
-            }
-
-            // If not found
-            Debug.LogWarning("Completed task item target object not found, triggering default index");
-        }
-    }
-
-    private int CheckDialogueIndexToTrigger()
-    {
-        TaskObject thisTaskObject = GetComponent<TaskObject>();
-        List<TaskItem> taskObjectsList = TasksManager.instance.taskItemsList;
-        
-        foreach (TaskItem taskItem in taskObjectsList)
-        {
-            if (taskItem.targetObject == GetComponent<DialogueTrigger>())
-                return 1;
-        }
-
-        return 0;
     }
 }

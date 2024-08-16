@@ -284,7 +284,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_LayerOverridePriority: 1
+  m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -647,6 +647,8 @@ MonoBehaviour:
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &210285537
 BoxCollider2D:
@@ -705,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasMultipleDialogues: 0
   dialogue: []
 --- !u!212 &210285539
 SpriteRenderer:
@@ -1746,6 +1749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasMultipleDialogues: 0
   dialogue: []
 --- !u!114 &624933097
 MonoBehaviour:
@@ -1763,6 +1767,8 @@ MonoBehaviour:
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!114 &624933098
 MonoBehaviour:
@@ -1776,15 +1782,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3df5392234b7a74abbd9c3f90ff7569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  taskText: {fileID: 1385695101}
   taskItemsList:
-  - id: 1
-    taskObject: {fileID: 1413344137}
+  - taskObject: {fileID: 1413344137}
+    taskObjectName: 
+    taskName: Talk to Kanami
+    isCompleted: 0
+  - taskObject: {fileID: 1531852957}
+    taskObjectName: 
+    taskName: Talk to Aiko
+    isCompleted: 0
+  currTaskItem:
+    taskObject: {fileID: 0}
     taskObjectName: 
     taskName: 
     isCompleted: 0
-    targetObject: {fileID: 1531852952}
-    targetObjectName: 
-    dialogueToTrigger: 1
 --- !u!1 &654104101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1852,6 +1864,8 @@ MonoBehaviour:
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &654104105
 BoxCollider2D:
@@ -1910,6 +1924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasMultipleDialogues: 0
   dialogue: []
 --- !u!212 &654104107
 SpriteRenderer:
@@ -3480,7 +3495,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_LayerOverridePriority: 1
+  m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3608,6 +3623,140 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1385695099
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1385695100}
+  - component: {fileID: 1385695102}
+  - component: {fileID: 1385695101}
+  m_Layer: 5
+  m_Name: Task Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1385695100
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385695099}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2140486251}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -151.42, y: -85.19089}
+  m_SizeDelta: {x: 862.84, y: 74.2525}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1385695101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385695099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Task textaaaaaaaaaaaaaaa
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 48
+  m_fontSizeBase: 48
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1385695102
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385695099}
+  m_CullTransparentMesh: 1
 --- !u!1 &1413344129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3619,8 +3768,8 @@ GameObject:
   - component: {fileID: 1413344136}
   - component: {fileID: 1413344135}
   - component: {fileID: 1413344134}
-  - component: {fileID: 1413344133}
   - component: {fileID: 1413344132}
+  - component: {fileID: 1413344133}
   - component: {fileID: 1413344131}
   - component: {fileID: 1413344130}
   - component: {fileID: 1413344137}
@@ -3676,6 +3825,8 @@ MonoBehaviour:
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &1413344133
 BoxCollider2D:
@@ -3720,7 +3871,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 6.4}
+  m_Size: {x: 3.5, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1413344134
 MonoBehaviour:
@@ -3734,6 +3885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasMultipleDialogues: 0
   dialogue:
   - dialogueLines:
     - data:
@@ -3744,7 +3896,16 @@ MonoBehaviour:
         action: 0
         illustration: {fileID: 0}
         sceneDestinationName: 
-      line: apaluwh
+      line: apaluwh mau main?
+    - data:
+        name: reiharu
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: (main)
     - data:
         name: a
         portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
@@ -3848,7 +4009,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCompleted: 0
-  taskId: 0
   taskGameObjectName: 
   id: bb8fdb60-f0ff-40b9-a6a0-4448ba648f3c
 --- !u!1 &1461567910
@@ -4315,7 +4475,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.04, y: 1.6}
+  m_Size: {x: 2.04, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &1511481495
 Rigidbody2D:
@@ -4547,6 +4707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasMultipleDialogues: 1
   dialogue:
   - dialogueLines:
     - data:
@@ -4622,6 +4783,43 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: hmph
+  - dialogueLines:
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: kenapa? udah main kan?
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: udh
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: ywdh
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: oke
 --- !u!61 &1531852953
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4665,7 +4863,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.5, y: 6.4}
+  m_Size: {x: 3.5, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1531852954
 MonoBehaviour:
@@ -4683,6 +4881,8 @@ MonoBehaviour:
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!222 &1531852955
 CanvasRenderer:
@@ -4702,7 +4902,7 @@ Animator:
   m_GameObject: {fileID: 1531852949}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7d9950a6bae5f384d84c64c33ee14fc6, type: 2}
+  m_Controller: {fileID: 9100000, guid: abd357cc864cd6d45a822ba2826683eb, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4726,7 +4926,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCompleted: 0
-  taskId: 1
   taskGameObjectName: 
   id: bc983295-84ae-4c95-aee7-8c47ba503cbe
 --- !u!1 &1564020544
@@ -4764,6 +4963,8 @@ MonoBehaviour:
   sceneDestination: SampleScene 2
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!212 &1564020546
 SpriteRenderer:
@@ -5891,6 +6092,8 @@ MonoBehaviour:
   sceneDestination: 
   areaDestination: 
   triggerOnTriggerEnter: 0
+  taskObject: {fileID: 0}
+  tasksManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &1918667416
 BoxCollider2D:
@@ -5949,6 +6152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b94547fd9d8dc546b883ad8a70de1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasMultipleDialogues: 0
   dialogue: []
 --- !u!212 &1918667418
 SpriteRenderer:
@@ -6552,6 +6756,7 @@ RectTransform:
   - {fileID: 2034696222}
   - {fileID: 1656691675}
   - {fileID: 1461567911}
+  - {fileID: 1385695100}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

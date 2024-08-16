@@ -7,7 +7,6 @@ using UnityEngine;
 public class TaskObject : MonoBehaviour, IDataPersistence
 {
     public bool isCompleted;
-    [Tooltip("Must match the related task item")] public string taskId;
 
     [HideInInspector] public string taskGameObjectName;
 

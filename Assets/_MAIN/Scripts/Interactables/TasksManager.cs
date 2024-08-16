@@ -1,29 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-
 
 [System.Serializable]
 public class TaskItem
 {
-    [Tooltip("Must match the related task object")] public string id;
-
-    [Header("Task Requirements")]
     public TaskObject taskObject;
     public string taskObjectName;
     public string taskName;
     public bool isCompleted;
-
-    [Header("Dialogue to Unlock")]
-    public DialogueTrigger targetObject;
-    public string targetObjectName;
-    [Tooltip("Which dialogue (in index) does this object will trigger after completing this task?")]
-        public int dialogueToTrigger;
 }
 
 public class TasksManager : MonoBehaviour, IDataPersistence
 {
+    [Header("Assign GameObjects")]
+    public TextMeshProUGUI taskText;
+
+    [Header("Task Items")]
     public List<TaskItem> taskItemsList;
+    public TaskItem currTaskItem;
 
     public static TasksManager instance;
 
@@ -31,28 +27,63 @@ public class TasksManager : MonoBehaviour, IDataPersistence
     {
         instance = this;
 
-        // Assigns the target TriggerDialogues on start
-        foreach (TaskItem taskItem in taskItemsList)
+        foreach (TaskItem simpleTaskItem in taskItemsList)
         {
-            taskItem.taskObjectName = taskItem.taskObject.gameObject.name;
-
-            taskItem.targetObject = taskItem.targetObject.GetComponent<DialogueTrigger>();
-            taskItem.targetObjectName = taskItem.targetObject.gameObject.name;
+            simpleTaskItem.taskObjectName = simpleTaskItem.taskObject.gameObject.name;
         }
+
+        currTaskItem = GetCurrentTask();
+    }
+
+    private void Start()
+    {
+        UpdateTaskItemsList();
     }
 
     // Updates the taskitems list
     public void UpdateTaskItemsList()
     {
-        // For every task items
         foreach (TaskItem taskItem in taskItemsList)
         {
-            // Check if the game object on the scene is completed
-            if (taskItem.taskObject.isCompleted)
-            {   // Updates the taskitems list
-                taskItem.isCompleted = true;
+            taskItem.isCompleted = taskItem.taskObject.isCompleted;
+        }
+
+        currTaskItem = GetCurrentTask();
+
+        taskText.text = currTaskItem.taskName;
+
+        if (currTaskItem == null)
+        {
+            taskText.text = "teks error ini, task udh selesai semua";
+            return;
+        }
+    }
+
+    public TaskItem GetCurrentTask()
+    {
+        int count = 0;
+
+        // Returns the first uncompleted task in list
+        foreach (TaskItem task in taskItemsList)
+        {
+            count++;
+
+            if (!task.isCompleted)
+            {
+                return task;
             }
         }
+
+        // Throws warning log if there are no more uncompleted task
+        if (taskItemsList.Count == count)
+        {
+            Debug.LogWarning("All tasks are completed");
+            return null;
+        }
+
+        // Throws warning log when task is not found in scene
+        Debug.LogWarning("Failed to get current task");
+        return null;
     }
 
     public void SaveData(GameData data)
@@ -68,14 +99,10 @@ public class TasksManager : MonoBehaviour, IDataPersistence
         {
             this.taskItemsList = data.taskItemsList;
 
-            // For every taskitem in the list
             foreach (TaskItem item in this.taskItemsList)
             {
                 item.taskObject = GameObject.Find(item.taskObjectName).GetComponent<TaskObject>();
-                item.targetObject = GameObject.Find(item.targetObjectName).GetComponent<DialogueTrigger>();
             }
-            
-            UpdateTaskItemsList();
         }
     }
 }

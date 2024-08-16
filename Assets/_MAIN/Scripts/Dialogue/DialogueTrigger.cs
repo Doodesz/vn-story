@@ -38,10 +38,26 @@ public class Dialogue
 [RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
+    [Tooltip("Uncheck this to ignore dialogue index out of range warning message")]
+    [SerializeField] bool hasMultipleDialogues = false;
+
+    [Tooltip("0: Default, 1: Triggers when this is the current task, 2: Triggers when this is a completed task")]
     public List<Dialogue> dialogue;
+
 
     public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0)
     {
+        // When the dialogues count is below the called index or doesn't have multiple dialogues
+        if (dialogue.Count < dialogueIndex-1 || !hasMultipleDialogues)
+        {
+            // Sets index to default (0)
+            dialogueIndex = default;
+
+            // Logs a warning if there are multiple dialogues but dialogue count is below called index (out of range)
+            if(hasMultipleDialogues)
+                Debug.LogWarning("Dialogue index out of range, assigning default value");
+        }
+        
         DialogueManager.Instance.StartDialogue(dialogue[dialogueIndex], gameObject, startLine);
     }
 }
