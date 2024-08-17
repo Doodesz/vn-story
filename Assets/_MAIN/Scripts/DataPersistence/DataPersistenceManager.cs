@@ -62,6 +62,7 @@ public class DataPersistenceManager : MonoBehaviour
         this.gameData.sceneName = chapterName;
         
         SaveGame();
+        Debug.Log("Line hit");
     }
 
     public void LoadGame()

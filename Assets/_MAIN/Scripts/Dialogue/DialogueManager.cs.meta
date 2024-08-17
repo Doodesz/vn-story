@@ -3,7 +3,25 @@ guid: 001935cca62cc864b86f8c813442e45b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - characterName: {instanceID: 0}
+  - dialogueTextArea: {instanceID: 0}
+  - dialogueObject: {instanceID: 0}
+  - logPanel: {instanceID: 0}
+  - illustrationObject: {instanceID: 0}
+  - portraitObject: {instanceID: 0}
+  - dialogueItemPrefab: {instanceID: 0}
+  - dialogueLogContainer: {instanceID: 0}
+  - continueButtonPrefab: {fileID: 8885531687333274202, guid: 199ac8f1883da7748baa1487a1f8f477, type: 3}
+  - continueButtonPos: {instanceID: 0}
+  - dialogueScreenAnimator: {instanceID: 0}
+  - playerController: {instanceID: 0}
+  - portraitImage: {instanceID: 0}
+  - illustrationImageObject: {instanceID: 0}
+  - illustrationTransitionObject: {instanceID: 0}
+  - portraitAnimator: {instanceID: 0}
+  - illustrationAnimator: {instanceID: 0}
+  - npcBeingInteracted: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

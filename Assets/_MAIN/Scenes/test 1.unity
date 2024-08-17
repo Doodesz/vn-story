@@ -1798,6 +1798,14 @@ MonoBehaviour:
     taskObjectName: 
     taskName: Talk to Aiko
     isCompleted: 0
+  - taskObject: {fileID: 1531852957}
+    taskObjectName: 
+    taskName: Talk to Aiko
+    isCompleted: 0
+  - taskObject: {fileID: 1413344137}
+    taskObjectName: 
+    taskName: Invite Kanami
+    isCompleted: 0
   currTaskItem:
     taskObject: {fileID: 0}
     taskObjectName: 
@@ -4102,6 +4110,46 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: hai rei bulannya cakep ya
+  - isNeutral: 0
+    taskIndex: 3
+    forPostTask: 0
+    dialogueLines:
+    - data:
+        name: kanami
+        portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: mau berangkat bareng?
+    - data:
+        name: rei
+        portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: ya
+    - data:
+        name: kanami
+        portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: yaudah ayo
+    - data:
+        name: 
+        portrait: {fileID: 0}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 1
+        illustration: {fileID: 21300000, guid: da56a22647489e448a4a6525a8f70473, type: 3}
+        sceneDestinationName: 
+      line: (mereka ber3 ke sekola bareng)
 --- !u!212 &1413344135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4913,6 +4961,19 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: halo rei
+  - isNeutral: 0
+    taskIndex: 2
+    forPostTask: 0
+    dialogueLines:
+    - data:
+        name: aiko
+        portrait: {fileID: 21300000, guid: 778a3d8d96423604588d18b3c0ea8c6c, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: yaudah ayo ke skola. itu ajak kanami dlu sono
 --- !u!61 &1531852953
 BoxCollider2D:
   m_ObjectHideFlags: 0

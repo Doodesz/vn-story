@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour, IDataPersistence
+public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
@@ -43,7 +43,11 @@ public class GameManager : MonoBehaviour, IDataPersistence
         if (initNewData)
         {
             DataPersistenceManager.instance.NewGame(scene);
+            DataPersistenceManager.instance.SaveGame();
+            Debug.Log("Line hit");
         }
+
+        Debug.Log("Line hit");
 
         // Disables all UI button to avoid unexpected bugs
         List<Button> UIbuttons = new(GameObject.FindObjectsOfType<Button>());
@@ -61,7 +65,7 @@ public class GameManager : MonoBehaviour, IDataPersistence
     private IEnumerator LoadScene(string scene)
     {
         yield return new WaitForSecondsRealtime(1f);
-        SceneManager.LoadSceneAsync(scene);
+        SceneManager.LoadScene(scene);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -77,15 +81,5 @@ public class GameManager : MonoBehaviour, IDataPersistence
     private void OnSceneUnloaded(Scene scene)
     {
 
-    }
-
-    public void SaveData(GameData data)
-    {
-
-    }
-
-    public void LoadData(GameData data)
-    { 
-    
     }
 }

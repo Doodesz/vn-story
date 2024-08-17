@@ -862,8 +862,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorDestination: 
-  doorPos: {x: 0, y: 0, z: 0}
   playerChangingMap: 0
+  doorPos: {x: 0, y: 0, z: 0}
+  dataPersistenceManager: {fileID: 0}
 --- !u!1 &261637639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2145,9 +2146,11 @@ MonoBehaviour:
   logPanel: {fileID: 270514284}
   illustrationObject: {fileID: 1268059173}
   portraitObject: {fileID: 1128117802}
-  dialogueScreenAnimator: {fileID: 261637641}
   dialogueItemPrefab: {fileID: 8164847247047064687, guid: 49b1ad923b55d2244a291cfd33053d2a, type: 3}
   dialogueLogContainer: {fileID: 916237736}
+  continueButtonPrefab: {fileID: 8885531687333274202, guid: 199ac8f1883da7748baa1487a1f8f477, type: 3}
+  continueButtonPos: {fileID: 2138459021}
+  dialogueScreenAnimator: {fileID: 261637641}
   playerController: {fileID: 1511481493}
   portraitImage: {fileID: 0}
   illustrationImageObject: {fileID: 0}
@@ -2162,7 +2165,7 @@ MonoBehaviour:
   npcBeingInteracted: {fileID: 0}
   isIllustHidden: 1
   isSwitchingIllust: 0
-  isChangingScene: 0
+  isGoingToNewScene: 0
   typeSpdMultiplierPref: 1
 --- !u!1 &691434788
 GameObject:
@@ -3345,6 +3348,25 @@ MonoBehaviour:
   initializeDataIfNull: 0
   fileName: save.txt
   useEncryption: 0
+  gameData:
+    playerPosition: {x: 0, y: 0, z: 0}
+    playerInControl: 1
+    isInDialogue: 0
+    isFirstTimeInScene: 1
+    hasPendingTaskListUpdate: 0
+    objectiveIndex: 0
+    lastDialogueIndex: 0
+    lastDialogueLineIndex: 0
+    lastTaskIndex: 0
+    npcBeingInteracted: 
+    sceneName: Prologue
+    currentArea: 0
+    taskItemsList: []
+    taskObjectsDictionary:
+      keys: []
+      values: 
+    isGoingToNewScene: 0
+    newSceneName: 
 --- !u!1 &1003309033
 GameObject:
   m_ObjectHideFlags: 0
@@ -7042,6 +7064,41 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!1 &2138459021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2138459022}
+  m_Layer: 5
+  m_Name: Button position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2138459022
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138459021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2140486251}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2140486250
 GameObject:
   m_ObjectHideFlags: 0
@@ -7078,6 +7135,7 @@ RectTransform:
   - {fileID: 828027832}
   - {fileID: 2034696222}
   - {fileID: 1656691675}
+  - {fileID: 2138459022}
   - {fileID: 1461567911}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

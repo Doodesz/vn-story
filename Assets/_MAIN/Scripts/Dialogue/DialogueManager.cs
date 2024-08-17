@@ -17,9 +17,11 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public GameObject logPanel; // Review dialogue panel
     public GameObject illustrationObject;
     public GameObject portraitObject;
-    public Animator dialogueScreenAnimator;
     public GameObject dialogueItemPrefab;
     public GameObject dialogueLogContainer;
+    public GameObject continueButtonPrefab;
+    public GameObject continueButtonPos;
+    public Animator dialogueScreenAnimator;
     public PlayerController playerController;
     //public Image characterIconRight; // unused
 
@@ -39,6 +41,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [SerializeField] private bool isIllustHidden = true;
     [SerializeField] private bool isSwitchingIllust;
     [SerializeField] bool isGoingToNewScene = false;
+    [SerializeField] string newSceneName;
     
     float switchingIllustTimeoutTimer;
 
@@ -157,9 +160,9 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         else if (dialogueLine.data.action == LineAction.GoToScene)
         {
-            isGoingToNewScene = true; // Will prevent continuing dialogue line
-
-            GameManager.instance.GoToScene(dialogueLine.data.sceneDestinationName);
+            newSceneName = dialogueLine.data.sceneDestinationName;
+            DataPersistenceManager.instance.SaveGame();
+            SceneManager.LoadSceneAsync("empty");
         }
     }
 
@@ -293,14 +296,17 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        if (npcBeingInteracted == null || isGoingToNewScene)
+        if (npcBeingInteracted == null)
         {
             data.lastDialogueLineIndex = 0;
             data.lastDialogueIndex = 0;
             data.npcBeingInteracted = null;
             data.isInDialogue = false;
             data.hasPendingTaskListUpdate = false;
-        }           
+
+            data.isGoingToNewScene = false;
+            data.newSceneName = this.newSceneName;
+        }
         else
         {
             data.npcBeingInteracted = this.npcBeingInteracted.name;
@@ -308,6 +314,10 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             data.lastDialogueIndex = this.currentDialogueIndex;
             data.isInDialogue = true;
             data.hasPendingTaskListUpdate = this.hasPendingTaskListUpdate;
+
+            data.isGoingToNewScene = this.isGoingToNewScene;
+            data.newSceneName = this.newSceneName;
+
         }
     }
 

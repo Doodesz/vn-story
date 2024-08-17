@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChapterButtons : MonoBehaviour
+public class ChapterButton : MonoBehaviour
 {
     [Tooltip("Determines which scene to go to")]
     public string chapterName;
