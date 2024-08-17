@@ -1,13 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, IDataPersistence
 {
     public static GameManager instance;
 
     [Header("Debugging")]
     public string doorDestination;
-    [SerializeField] Vector3 doorPos;
     public bool playerChangingMap = false;
+    [SerializeField] Vector3 doorPos; // unused
+    [SerializeField] DataPersistenceManager dataPersistenceManager;
 
     private void Awake()
     {
@@ -18,10 +23,69 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
+    }
+
+    private void Start()
+    {
+        dataPersistenceManager = DataPersistenceManager.instance;
     }
 
     public void UpdateDoorDestinationPos(Vector3 pos)
     {
         doorPos = pos;
+    }
+
+    public void GoToScene(string scene, bool initNewData = false)
+    {
+        if (initNewData)
+        {
+            DataPersistenceManager.instance.NewGame(scene);
+        }
+
+        // Disables all UI button to avoid unexpected bugs
+        List<Button> UIbuttons = new(GameObject.FindObjectsOfType<Button>());
+
+        foreach (Button button in UIbuttons)
+        {
+            button.interactable = false;
+        }
+
+        ScreenTransition.instance.PlayTransitionOut();
+        StartCoroutine(LoadScene(scene));
+
+    }
+
+    private IEnumerator LoadScene(string scene)
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadSceneAsync(scene);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        List<Button> UIbuttons = new (GameObject.FindObjectsOfType<Button>());
+
+        foreach (Button button in UIbuttons)
+        {
+            button.interactable = true;
+        }
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+
+    }
+
+    public void SaveData(GameData data)
+    {
+
+    }
+
+    public void LoadData(GameData data)
+    { 
+    
     }
 }

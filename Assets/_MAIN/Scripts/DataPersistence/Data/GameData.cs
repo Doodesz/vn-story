@@ -22,6 +22,10 @@ public class GameData
     public List<TaskItem> taskItemsList;
     public SerializableDictionary<string, bool> taskObjectsDictionary;
 
+    // Important for changing scenes to work
+    public bool isGoingToNewScene;
+    public string newSceneName;
+
     // the values defined in this constructor will be the default values
     // the game starts with when there's no data to load
     public GameData() 
@@ -39,5 +43,8 @@ public class GameData
         currentArea = "0";
         taskItemsList = new List<TaskItem>();
         taskObjectsDictionary = new SerializableDictionary<string, bool>();
+
+        isGoingToNewScene = false;
+        newSceneName = string.Empty;
     }
 }

@@ -246,14 +246,14 @@ RectTransform:
   m_GameObject: {fileID: 88369250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1413344136}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.88}
+  m_AnchoredPosition: {x: -0.16, y: 2.88}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88369252
@@ -304,7 +304,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.4, y: 2.4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -354,7 +354,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c297549128d2304c89a16676048f4b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -649,6 +649,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &210285537
 BoxCollider2D:
@@ -892,8 +894,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 156753519}
-  - {fileID: 840129997}
+  - {fileID: 757621773}
   - {fileID: 1128117803}
+  - {fileID: 840129997}
   - {fileID: 270514285}
   - {fileID: 798894942}
   m_Father: {fileID: 924268618}
@@ -1680,8 +1683,8 @@ GameObject:
   - component: {fileID: 624933093}
   - component: {fileID: 624933098}
   - component: {fileID: 624933095}
-  - component: {fileID: 624933097}
   - component: {fileID: 624933096}
+  - component: {fileID: 624933097}
   m_Layer: 0
   m_Name: Map Manager
   m_TagString: Untagged
@@ -1767,6 +1770,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!114 &624933098
 MonoBehaviour:
@@ -1795,6 +1800,10 @@ MonoBehaviour:
   - taskObject: {fileID: 1413344137}
     taskObjectName: 
     taskName: Talk to Kanami
+    isCompleted: 0
+  - taskObject: {fileID: 1413344137}
+    taskObjectName: 
+    taskName: Go home with Kanami
     isCompleted: 0
   currTaskItem:
     taskObject: {fileID: 0}
@@ -1954,6 +1963,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &654104105
 BoxCollider2D:
@@ -2151,6 +2162,7 @@ MonoBehaviour:
   npcBeingInteracted: {fileID: 0}
   isIllustHidden: 1
   isSwitchingIllust: 0
+  isChangingScene: 0
   typeSpdMultiplierPref: 1
 --- !u!1 &691434788
 GameObject:
@@ -2539,6 +2551,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709780232}
+  m_CullTransparentMesh: 1
+--- !u!1 &757621772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 757621773}
+  - component: {fileID: 757621775}
+  - component: {fileID: 757621774}
+  m_Layer: 5
+  m_Name: Panel backround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &757621773
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757621772}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 261637640}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -10}
+  m_SizeDelta: {x: 20, y: -430}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &757621774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757621772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8509804}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &757621775
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757621772}
   m_CullTransparentMesh: 1
 --- !u!1 &798894941
 GameObject:
@@ -2997,7 +3084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8509804}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3397,15 +3484,15 @@ RectTransform:
   m_GameObject: {fileID: 1128117802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 261637640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -427, y: -0.9968262}
-  m_SizeDelta: {x: 364.0182, y: -234.6464}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: -445, y: 0}
+  m_SizeDelta: {x: 428.57144, y: 571.4286}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1128117804
 MonoBehaviour:
@@ -3427,7 +3514,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3494,14 +3581,14 @@ RectTransform:
   m_GameObject: {fileID: 1176024919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1531852951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.88}
+  m_AnchoredPosition: {x: -0.16, y: 2.88}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1176024921
@@ -3545,7 +3632,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4c297549128d2304c89a16676048f4b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3604,7 +3691,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.4, y: 2.4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -3746,8 +3833,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -151.42, y: -85.19089}
-  m_SizeDelta: {x: 862.84, y: 74.2525}
+  m_AnchoredPosition: {x: -247.8515, y: -85.19089}
+  m_SizeDelta: {x: 669.977, y: 74.2525}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1385695101
 MonoBehaviour:
@@ -3769,7 +3856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Task textaaaaaaaaaaaaaaa
+  m_text: Task textaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbb
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3916,6 +4003,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &1413344133
 BoxCollider2D:
@@ -3975,7 +4064,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogues:
-  - taskIndex: 0
+  - isNeutral: 0
+    taskIndex: 0
     forPostTask: 0
     dialogueLines:
     - data:
@@ -4014,7 +4104,8 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: oke
-  - taskIndex: 2
+  - isNeutral: 0
+    taskIndex: 2
     forPostTask: 1
     dialogueLines:
     - data:
@@ -4026,7 +4117,8 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: udah atuh udah amaku duakali, aiko sekali
-  - taskIndex: 2
+  - isNeutral: 0
+    taskIndex: 2
     forPostTask: 0
     dialogueLines:
     - data:
@@ -4065,7 +4157,8 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: yaudah ayo
-  - taskIndex: 0
+  - isNeutral: 0
+    taskIndex: 0
     forPostTask: 1
     dialogueLines:
     - data:
@@ -4077,6 +4170,55 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: udah main kan tadi
+  - isNeutral: 0
+    taskIndex: 3
+    forPostTask: 0
+    dialogueLines:
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: mau pulang karena dh magrib?
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: iya
+    - data:
+        name: kanami
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: yauda ayo
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 0
+        illustration: {fileID: 0}
+        sceneDestinationName: 
+      line: oke
+    - data:
+        name: rei
+        portrait: {fileID: 21300000, guid: aa1fc686a1187df499ed5add72c5c455, type: 3}
+        portraitAnim: {fileID: 0}
+        typingInterval: 0
+        action: 2
+        illustration: {fileID: 0}
+        sceneDestinationName: test 1
+      line: oke
 --- !u!212 &1413344135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4862,7 +5004,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogues:
-  - taskIndex: 0
+  - isNeutral: 0
+    taskIndex: 0
     forPostTask: 0
     dialogueLines:
     - data:
@@ -4883,7 +5026,8 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: sana sama kanami dlu
-  - taskIndex: 1
+  - isNeutral: 0
+    taskIndex: 1
     forPostTask: 1
     dialogueLines:
     - data:
@@ -4904,7 +5048,8 @@ MonoBehaviour:
         illustration: {fileID: 0}
         sceneDestinationName: 
       line: tadi udah main loh
-  - taskIndex: 1
+  - isNeutral: 0
+    taskIndex: 1
     forPostTask: 0
     dialogueLines:
     - data:
@@ -5033,6 +5178,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!222 &1531852955
 CanvasRenderer:
@@ -5115,6 +5262,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!212 &1564020546
 SpriteRenderer:
@@ -5589,6 +5738,7 @@ GameObject:
   - component: {fileID: 1608801710}
   - component: {fileID: 1608801709}
   - component: {fileID: 1608801711}
+  - component: {fileID: 1608801712}
   m_Layer: 0
   m_Name: Move Destination Indicator
   m_TagString: Untagged
@@ -5636,9 +5786,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.6933962, b: 0.9841573, a: 1}
+  m_SortingOrder: 4
+  m_Sprite: {fileID: -1340838092, guid: 86f5f464863eeee4c8dc50a75c3db072, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5657,8 +5807,8 @@ Transform:
   m_GameObject: {fileID: 1608801708}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.12, y: -2.7, z: 0}
-  m_LocalScale: {x: 2.0827663, y: 0.31598216, z: 1}
+  m_LocalPosition: {x: -1.5, y: -2.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1483909459}
@@ -5675,6 +5825,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f60785740c35a499dd9d3bf909e5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &1608801712
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608801708}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 35fac70088d0e5946ba6a33281d92eab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1656691674
 GameObject:
   m_ObjectHideFlags: 0
@@ -6244,6 +6415,8 @@ MonoBehaviour:
   triggerOnTriggerEnter: 0
   taskObject: {fileID: 0}
   tasksManager: {fileID: 0}
+  dialogueManager: {fileID: 0}
+  gameManager: {fileID: 0}
   hasTaskObjectAttached: 0
 --- !u!61 &1918667416
 BoxCollider2D:
@@ -6900,11 +7073,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1385695100}
   - {fileID: 924268618}
   - {fileID: 828027832}
   - {fileID: 2034696222}
   - {fileID: 1656691675}
-  - {fileID: 1385695100}
   - {fileID: 1461567911}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

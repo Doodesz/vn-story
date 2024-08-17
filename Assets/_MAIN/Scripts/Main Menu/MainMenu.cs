@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start() 
     {
-        if (!DataPersistenceManager.Instance.HasGameData()) 
+        if (!DataPersistenceManager.instance.HasGameData()) 
         {
             continueGameButton.interactable = false;
         }
@@ -39,7 +39,7 @@ public class MainMenu : MonoBehaviour
         if (newGame)
         {
             // create a new game - which will initialize our game data
-            DataPersistenceManager.Instance.NewGame();
+            DataPersistenceManager.instance.NewGame();
             // load the gameplay scene - which will in turn save the game because of
             // OnSceneUnloaded() in the DataPersistenceManager
             SceneManager.LoadSceneAsync(newGameScene);
@@ -48,8 +48,8 @@ public class MainMenu : MonoBehaviour
         {
             // load the next scene - which will in turn load the game because of 
             // OnSceneLoaded() in the DataPersistenceManager
-            SceneManager.LoadSceneAsync(DataPersistenceManager.Instance.GetGameData().sceneName);
-            DataPersistenceManager.Instance.LoadGame();
+            SceneManager.LoadSceneAsync(DataPersistenceManager.instance.GetGameData().sceneName);
+            DataPersistenceManager.instance.LoadGame();
         }
     }
 

@@ -13,20 +13,20 @@ public class DataPersistenceManager : MonoBehaviour
     [SerializeField] private string fileName;
     [SerializeField] private bool useEncryption;
 
-    private GameData gameData;
+    public GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
-    public static DataPersistenceManager Instance { get; private set; }
+    public static DataPersistenceManager instance { get; private set; }
 
     private void Awake() 
     {
-        if (Instance != null) 
+        if (instance != null) 
         {
             Destroy(this.gameObject);
             return;
         }
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(this.gameObject);
 
         this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
@@ -56,9 +56,11 @@ public class DataPersistenceManager : MonoBehaviour
             SaveGame();*/
     }
 
-    public void NewGame() 
+    public void NewGame(string chapterName = "Prologue") 
     {
         this.gameData = new GameData();
+        this.gameData.sceneName = chapterName;
+        
         SaveGame();
     }
 
@@ -78,6 +80,13 @@ public class DataPersistenceManager : MonoBehaviour
         {
             Debug.Log("No data was found. A New Game needs to be started before data can be loaded.");
             return;
+        }
+
+        // If the data has the isGoingToNewScene on true, make a new game data with specific datas
+        // related to scenes changed
+        if (this.gameData.isGoingToNewScene)
+        {
+            NewGame(gameData.newSceneName);
         }
 
         // push the loaded data to all other scripts that need it
@@ -132,5 +141,14 @@ public class DataPersistenceManager : MonoBehaviour
     public GameData GetGameData()
     {
         return gameData;
+    }
+
+    private void InitiateNewSceneData(string sceneName)
+    {
+        gameData = new GameData();
+
+        gameData.sceneName = sceneName;
+        gameData.isFirstTimeInScene = true;
+        SaveGame();
     }
 }

@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         if (GameManager.instance.playerChangingMap && SceneManager.GetActiveScene().isLoaded)
         {
             RepositionPlayerToDoor(GameManager.instance.doorDestination);
-            DataPersistenceManager.Instance.SaveGame(); // Fix bug +fitur auto save anjay:D
+            DataPersistenceManager.instance.SaveGame(); // Fix bug +fitur auto save anjay:D
         }
     }
 

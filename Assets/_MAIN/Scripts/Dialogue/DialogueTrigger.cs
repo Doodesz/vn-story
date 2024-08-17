@@ -16,6 +16,7 @@ public class DialogueData // Contains anything abt the line data
 
     // Enter if there's a post-line action
     [Header("Line Action")]
+    [Tooltip("Only works for entering next chapter. Will end this dialogue")]
     public LineAction action;
     public Sprite illustration;
     public string sceneDestinationName;
@@ -49,51 +50,30 @@ public class DialogueTrigger : MonoBehaviour
     [Tooltip("First element must be neutral as it's for a fallback when no dialogue conditions are fulfilled")]
     public List<Dialogue> dialogues;
 
-    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false, bool neutral = false)
+    public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false)
     {
+        #region hellzone, everything's fixed, don't touch anything here anymore
+
         Dialogue dialogueToTrigger = null;
+        bool hasTriggered = false;
 
         if (!resumingLastDialogue)
         {
-            bool isCurrentTask = false;
-
-            // Checks if current task object is this object
+            // Triggers if this is the dialogue of the current task
+                // Checks if current task object is this object
             if (TasksManager.instance.GetCurrentTask() != null) // Exception
                 if (TasksManager.instance.currTaskItem.taskObject == GetComponent<TaskObject>())
-                    isCurrentTask = true;
-            
-            // Finds and triggers task dialogue if this is the current task
-            foreach (Dialogue dialogue in dialogues)
-            {
-                if (isCurrentTask)
-                {
-                    DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject,  
-                        dialogues.IndexOf(GetTaskDialogue()));
-                    return;
-                }
-            }
-
-            // Triggers neutral dialogue
-            {
-                int i = 0;
-                bool hasTriggered = false;
-                if (neutral)
+                    // Finds and triggers task dialogue if this is the current task
                     foreach (Dialogue dialogue in dialogues)
                     {
-                        if (dialogue.isNeutral)
-                        {
-                            if (!hasTriggered)
-                                DialogueManager.instance.StartDialogue(dialogue, gameObject, i);
-                            else
-                                Debug.LogError("Multiple neutral dialogue found. Only executing the lowest index");
-                            i++;
-                        }
+                        DialogueManager.instance.StartDialogue(GetTaskDialogue(), gameObject,  
+                            dialogues.IndexOf(GetTaskDialogue()));
+                        return;
                     }
-            }
 
+            // Triggers if not a task dialogue, but there's a post task dialogue
+                // Finds and sets dialogueIndex that contains dialogue for post task shits
             int thisLastTaskIndex = (TasksManager.instance.GetLatestTaskFor(GetComponent<TaskObject>()));
-
-            // Finds and sets dialogueIndex that contains dialogue for post task shits
             if (thisLastTaskIndex < TasksManager.instance.currTaskIndex)
             {
                 // Finds every dialogue that has passed the task index and has a true postTask value
@@ -111,26 +91,59 @@ public class DialogueTrigger : MonoBehaviour
                         Debug.Log("Post Task Dialogue index found: " +  dialogues.IndexOf(dialogueToTrigger));
                     }
                 }
-                DialogueManager.instance.StartDialogue(dialogueToTrigger, gameObject, 
-                    dialogues.IndexOf(dialogueToTrigger), startLine);
-                return;
+
+                // Triggers if a post task dialogue is found
+                if (dialogueToTrigger != null)
+                {
+                    DialogueManager.instance.StartDialogue(dialogueToTrigger, gameObject, 
+                        dialogues.IndexOf(dialogueToTrigger), startLine);
+                    return;
+                }
             }
+
+            // If still no condition met, search and trigger neutral dialogue (if there are any)
+            {
+                int i = 0;
+                foreach (Dialogue dialogue in dialogues)
+                    if (dialogue.isNeutral)
+                        if (!hasTriggered)
+                        {
+                            DialogueManager.instance.StartDialogue(dialogue, gameObject, i);
+                            hasTriggered = true;
+                        }
+                        else // Exception
+                            Debug.LogError("Multiple neutral dialogue found. Ignoring the rest with higher index");
+                        i++;
+                if (hasTriggered)
+                    return;
+            }
+        }
+
+        // If all else fails, which means no task dialogue, no post task dialogue,
+        // and no neutral dialogue is found, force start a dialogue of index 0
+        if (!hasTriggered && !resumingLastDialogue)
+        {
+            Debug.LogWarning("No dialogue fulfills any conditions. Triggering dialogue with default index of 0");
         }
         
         // Default trigger (also for resuming last save)
         DialogueManager.instance.StartDialogue(dialogues[dialogueIndex], gameObject, dialogueIndex, startLine);
         if (resumingLastDialogue) resumingLastDialogue = false;
+
+        #endregion
     }
 
     private Dialogue GetTaskDialogue()
     {
         foreach (Dialogue dialogue in dialogues)
         {
-            if (dialogue.taskIndex == TasksManager.instance.currTaskIndex && !dialogue.forPostTask)
+            if (dialogue.taskIndex == TasksManager.instance.currTaskIndex && !dialogue.forPostTask
+                && !dialogue.isNeutral)
                 return dialogue;
         }
 
-        Debug.LogWarning("No matching task index in dialogues. Returning index default 0");
+        // Exception
+        Debug.LogError("No matching task index in dialogues. Returning index default 0");
         return dialogues[0];
     }
 }

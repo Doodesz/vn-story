@@ -38,6 +38,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [SerializeField] private GameObject npcBeingInteracted;
     [SerializeField] private bool isIllustHidden = true;
     [SerializeField] private bool isSwitchingIllust;
+    [SerializeField] bool isGoingToNewScene = false;
     
     float switchingIllustTimeoutTimer;
 
@@ -68,9 +69,9 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-
+        // Continue to next dialogue line
         if (isInDialogue && !isTyping && ( Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) )
-            && !UIManager.instance.isMouseOverButton && !UIManager.instance.isOnCoveredScreenUI)
+            && !UIManager.instance.isMouseOverButton && !UIManager.instance.isOnCoveredScreenUI && !isGoingToNewScene)
         {
             DisplayNextDialogueLine();
         }
@@ -93,7 +94,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             return;
         }
 
-        // Sets default variables and fixes unexpected bug
+        // Sets default variables and thus fixes unexpected bug
         isInDialogue = true;
         dialogueObject.SetActive(true);
         npcBeingInteracted = gameObject;
@@ -132,15 +133,17 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         DialogueLine currentLine = lines.Dequeue();
         currentLineIndex++;
 
-        portraitImage.sprite = currentLine.data.portrait;
-        characterName.text = currentLine.data.name;
-        AddNewConversationLog(currentLine.data.name, currentLine.line);
-        //characterIconRight.sprite = currentLine.data.rightIcon; // unused
-
+        // Triggers dialogue line action (if there are any)
         if (currentLine.data.action != LineAction.None)
         {
             TriggerDialogueAction(currentLine);
+            if (currentLine.data.action == LineAction.GoToScene)
+                return;
         }
+
+        portraitImage.sprite = currentLine.data.portrait;
+        characterName.text = currentLine.data.name;
+        AddNewConversationLog(currentLine.data.name, currentLine.line);
 
         StartCoroutine(TypeSentence(currentLine, currentLine.data.typingInterval * typeSpdMultiplierPref));
     }
@@ -154,8 +157,9 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         else if (dialogueLine.data.action == LineAction.GoToScene)
         {
-            // LoadScene... used later
-            // save with isfirsttime in scene on true
+            isGoingToNewScene = true; // Will prevent continuing dialogue line
+
+            GameManager.instance.GoToScene(dialogueLine.data.sceneDestinationName);
         }
     }
 
@@ -220,7 +224,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             hasPendingTaskListUpdate = false;
         }
 
-        DataPersistenceManager.Instance.SaveGame(); // Fix bug + autosave coy awowakw
+        DataPersistenceManager.instance.SaveGame(); // Fix bug + autosave coy awowakw
     }
 
     private void HideDialogueScreen()
@@ -289,14 +293,14 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     public void SaveData(GameData data)
     {
-        if (npcBeingInteracted == null)
+        if (npcBeingInteracted == null || isGoingToNewScene)
         {
             data.lastDialogueLineIndex = 0;
             data.lastDialogueIndex = 0;
             data.npcBeingInteracted = null;
             data.isInDialogue = false;
             data.hasPendingTaskListUpdate = false;
-        }        
+        }           
         else
         {
             data.npcBeingInteracted = this.npcBeingInteracted.name;
@@ -322,6 +326,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     public void LoadLastConversation()
     {
         npcBeingInteracted.GetComponent<DialogueTrigger>().TriggerDialogue(currentLineIndex, currentDialogueIndex, resumingLastDialogue: true);
+        Debug.Log("Resuming last dialogue");
         if (npcBeingInteracted == null) Debug.Log("Referenced npcBeingInteracted GameObject not found");
     }
 }

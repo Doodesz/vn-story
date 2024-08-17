@@ -37,11 +37,12 @@ public class ButtonManager : MonoBehaviour
 
     public void OnSaveClicked()
     {
-        DataPersistenceManager.Instance.SaveGame();
+        DataPersistenceManager.instance.SaveGame();
     }
 
     public void OnMainMenuClicked()
     {
+        DataPersistenceManager.instance.SaveGame();
         StartCoroutine(GoToMainMenu());
     }
 
