@@ -162,7 +162,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         {
             newSceneName = dialogueLine.data.sceneDestinationName;
             DataPersistenceManager.instance.SaveGame();
-            SceneManager.LoadSceneAsync("empty");
+            SceneManager.LoadSceneAsync("Inter-scene");
         }
     }
 

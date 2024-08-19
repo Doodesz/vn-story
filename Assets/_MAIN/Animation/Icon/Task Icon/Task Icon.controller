@@ -6,13 +6,13 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Aiko
+  m_Name: Task Icon
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: 337097158819917376}
+    m_StateMachine: {fileID: 5414369600122694965}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -22,7 +22,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1107 &337097158819917376
+--- !u!1107 &5414369600122694965
 AnimatorStateMachine:
   serializedVersion: 6
   m_ObjectHideFlags: 1
@@ -32,8 +32,8 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 5444596629815793825}
-    m_Position: {x: 230, y: 120, z: 0}
+    m_State: {fileID: 6221533862999566476}
+    m_Position: {x: 341.59937, y: 125.41644, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -43,8 +43,8 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 5444596629815793825}
---- !u!1102 &5444596629815793825
+  m_DefaultState: {fileID: 6221533862999566476}
+--- !u!1102 &6221533862999566476
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
@@ -64,7 +64,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1ed09ff4565b2924b8942cb531e50a7c, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4ac5129ce2d10264690269bb38029f63, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

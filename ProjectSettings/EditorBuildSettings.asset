@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/_MAIN/Scenes/test 1.unity
     guid: a86a115b9a56206419c397445487b29a
   - enabled: 1
-    path: Assets/_MAIN/Scenes/empty.unity
+    path: Assets/_MAIN/Scenes/Inter-scene.unity
     guid: 9ae6e3f1382d3eb4988b635b55b0ac82
   m_configObjects: {}
