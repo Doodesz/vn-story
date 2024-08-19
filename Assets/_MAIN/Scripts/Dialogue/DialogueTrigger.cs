@@ -47,7 +47,8 @@ public class Dialogue
 [RequireComponent(typeof(Interactable))]
 public class DialogueTrigger : MonoBehaviour
 {
-    [Tooltip("First element must be neutral as it's for a fallback when no dialogue conditions are fulfilled")]
+    [Tooltip("First element is recommended to be neutral as it's fallback when no dialogue conditions " +
+        "are fulfilled")]
     public List<Dialogue> dialogues;
 
     public void TriggerDialogue(int startLine = 0, int dialogueIndex = 0, bool resumingLastDialogue = false)

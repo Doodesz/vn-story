@@ -21,8 +21,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        if (isFirstTimeInScene)
-            isFirstTimeInScene = false;
+
     }
 
     private void Update()
@@ -39,8 +38,6 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     public void InitializeFirstTimeSceneBehaviour()
     {
         playerController.isPlayerInControl = false;
-
-        // or do smth like play a video cutscene
     }
 
     private IEnumerator HideFirstTimeSceneScreen()
@@ -49,7 +46,6 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
         yield return new WaitForSecondsRealtime(2f);
 
-        isFirstTimeInScene = false;
         firstTimeSceneScreen.SetActive(false);
     }
 
