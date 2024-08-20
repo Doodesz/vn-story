@@ -19,6 +19,13 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
         instance = this;
     }
 
+    private void Start()
+    {
+        if (isFirstTimeInScene)
+            isFirstTimeInScene = false;
+
+    }
+
     private void Update()
     {
         if (isFirstTimeInScene && hasFirstTimeSceneAction 
