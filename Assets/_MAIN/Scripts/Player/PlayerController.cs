@@ -41,44 +41,44 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name != "MainMenu" && !GameManager.instance.isGamePaused)
+        if (SceneManager.GetActiveScene().name == "MainMenu" || GameManager.instance.isGamePaused)
+            return;
+
+        Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
+
+        // Movements
+        if (PlayerInControl())
         {
-            Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
-            Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);
-
-            // Movements
-            if (PlayerInControl())
+            // Deprecated
+            // When receiving keyboard input, override isMovingToCursor
+            horizontalInput = Input.GetAxis("Horizontal");
+            if (horizontalInput != 0f)
             {
-                // Deprecated
-                // When receiving keyboard input, override isMovingToCursor
-                horizontalInput = Input.GetAxis("Horizontal");
-                if (horizontalInput != 0f)
-                {
-                    Move(horizontalInput);
-                    isMoving = false;
-                }
+                Move(horizontalInput);
+                isMoving = false;
+            }
             
-                // Move to clicked position
-                if (Input.GetMouseButtonDown(0))
-                {
-                    CancelMovement(); // Overwrites current movement first
+            // Move to clicked position
+            if (Input.GetMouseButtonDown(0))
+            {
+                CancelMovement(); // Overwrites current movement first
 
-                    // Denies movement on certain screen areas
-                    if (!UIManager.instance.isMouseOverButton)
-                    {
-                        isMoving = true;
-                        moveDestination = mouseWorldPosition;
-                        moveIndicator.Show(mouseWorldPosition);
-                    }
+                // Denies movement on certain screen areas
+                if (!UIManager.instance.isMouseOverButton)
+                {
+                    isMoving = true;
+                    moveDestination = mouseWorldPosition;
+                    moveIndicator.Show(mouseWorldPosition);
                 }
             }
 
-            if (isMoving)
-            {
-                MoveToCursor(moveDestination);
-            }
+        if (isMoving)
+        {
+            MoveToCursor(moveDestination);
+        }
 
-            LimitPlayerPosition();
+        LimitPlayerPosition();
         }
     }
 

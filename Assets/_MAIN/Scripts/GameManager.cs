@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        isGamePaused = false;
+
         List<Button> UIbuttons = new (GameObject.FindObjectsOfType<Button>());
 
         foreach (Button button in UIbuttons)
