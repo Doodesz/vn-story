@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [SerializeField] private Image illustrationTransitionObject;
     [SerializeField] private Animator portraitAnimator;
     [SerializeField] private Animator illustrationAnimator;
+    [SerializeField] GameObject pauseButton;
 
     [Header("Current State")]
     public bool isInDialogue = false;
@@ -105,6 +106,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         illustrationImageObject.sprite = null;
         illustrationTransitionObject.sprite = null;
         currentDialogueIndex = dialogueIndex;
+        pauseButton.SetActive(false);
 
         dialogueScreenAnimator.Play("show");
 
@@ -220,6 +222,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
         ClearConversationLog();
         HideDialogueScreen();
+        pauseButton.SetActive(true);
 
         if (hasPendingTaskListUpdate)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     [Header("Debugging")]
     public string doorDestination;
     public bool playerChangingMap = false;
+    public bool isGamePaused = false;
+
     [SerializeField] Vector3 doorPos; // unused
     [SerializeField] DataPersistenceManager dataPersistenceManager;
 
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
+
         DontDestroyOnLoad(this.gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;

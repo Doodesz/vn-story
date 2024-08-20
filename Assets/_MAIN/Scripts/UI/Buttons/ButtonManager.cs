@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 // public enum ButtonType { Save, Load, ReviewDialogue, ExitToMainMenu, Settings }
 public class ButtonManager : MonoBehaviour
 {
+    [SerializeField] GameObject pauseScreen;
+
     // unused
 
     /*[SerializeField] private ButtonType thisButtonType;
@@ -44,6 +46,11 @@ public class ButtonManager : MonoBehaviour
     {
         DataPersistenceManager.instance.SaveGame();
         StartCoroutine(GoToMainMenu());
+    }
+
+    public void OnTogglePauseMenuClicked()
+    {
+        pauseScreen.GetComponent<PauseScreen>().TogglePauseMenu();
     }
 
     IEnumerator GoToMainMenu()

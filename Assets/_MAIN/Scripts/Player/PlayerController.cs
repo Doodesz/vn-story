@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "MainMenu" && !GameManager.instance.isGamePaused)
         {
             Vector3 mousePos = Input.mousePosition + new Vector3(0,0, 10f);
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePos);

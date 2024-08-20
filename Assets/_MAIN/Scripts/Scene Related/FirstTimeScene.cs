@@ -19,14 +19,10 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
         instance = this;
     }
 
-    private void Start()
-    {
-
-    }
-
     private void Update()
     {
-        if (isFirstTimeInScene && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ) )
+        if (isFirstTimeInScene && hasFirstTimeSceneAction 
+            && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ) )
         {
             GetComponent<DialogueTrigger>().TriggerDialogue();
             isFirstTimeInScene = false;
