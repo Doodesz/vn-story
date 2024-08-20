@@ -11,19 +11,14 @@ public class PauseScreen : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void TogglePauseMenu()
     {
         StopAllCoroutines();
 
-        if (!gameObject.activeSelf)
-            ShowPauseMenu();
-        else 
+        if (gameObject.activeInHierarchy)
             HidePauseMenu();
+        else 
+            ShowPauseMenu();
     }
 
     private void ShowPauseMenu()
