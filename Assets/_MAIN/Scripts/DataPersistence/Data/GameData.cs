@@ -19,6 +19,7 @@ public class GameData
     public string npcBeingInteracted;
     public string sceneName;
     public string currentArea;
+    public string interSceneText;
     public List<TaskItem> taskItemsList;
     public SerializableDictionary<string, bool> taskObjectsDictionary;
 
@@ -41,6 +42,7 @@ public class GameData
         npcBeingInteracted = null;
         sceneName = "Prologue";
         currentArea = "0";
+        interSceneText = string.Empty;
         taskItemsList = new List<TaskItem>();
         taskObjectsDictionary = new SerializableDictionary<string, bool>();
 

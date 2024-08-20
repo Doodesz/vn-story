@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ContinueButton : MonoBehaviour
 {
     [Tooltip("Determines which scene to go to")]
     public string chapterName;
+    public string text;
+    
+    ContinueButton continueButton;
 
     private void Start()
-    {
-        GetComponent<ContinueButton>().chapterName = DataPersistenceManager.instance.gameData.newSceneName;
+    {   
+        continueButton = GetComponent<ContinueButton>();
+        continueButton.chapterName = DataPersistenceManager.instance.gameData.newSceneName;
+        transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = DataPersistenceManager.instance.gameData.interSceneText;
     }
 
     public void NewSpecificChGame()

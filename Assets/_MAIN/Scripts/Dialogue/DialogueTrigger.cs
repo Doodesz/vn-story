@@ -16,10 +16,11 @@ public class DialogueData // Contains anything abt the line data
 
     // Enter if there's a post-line action
     [Header("Line Action")]
-    [Tooltip("Only works for entering next chapter. Will end this dialogue")]
+    [Tooltip("GoToScene only works for entering next chapter. Will end this dialogue")]
     public LineAction action;
     public Sprite illustration;
     public string sceneDestinationName;
+    public string interSceneText;
 }
 
 

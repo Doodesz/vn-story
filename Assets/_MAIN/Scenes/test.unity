@@ -1749,6 +1749,7 @@ MonoBehaviour:
   isSwitchingIllust: 0
   isGoingToNewScene: 0
   newSceneName: 
+  interSceneText: 
   typeSpdMultiplierPref: 1
 --- !u!1 &693458389
 GameObject:
@@ -2092,7 +2093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -600, y: 0.000061035156}
+  m_AnchoredPosition: {x: -600, y: 0}
   m_SizeDelta: {x: 15, y: -570}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &916237738
@@ -2150,7 +2151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &924268618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2383,6 +2384,7 @@ MonoBehaviour:
     npcBeingInteracted: 
     sceneName: Prologue
     currentArea: 0
+    interSceneText: 
     taskItemsList: []
     taskObjectsDictionary:
       keys: []
@@ -6608,6 +6610,10 @@ PrefabInstance:
     - target: {fileID: 2130891356887370870, guid: 644a2a4417b18f8449c2e1cd754ea52b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6444810440266898418, guid: 644a2a4417b18f8449c2e1cd754ea52b, type: 3}
+      propertyPath: dialogues.Array.data[4].dialogueLines.Array.data[4].data.interSceneText
+      value: The next morning...
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

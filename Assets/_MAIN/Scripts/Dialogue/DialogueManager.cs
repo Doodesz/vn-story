@@ -43,6 +43,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
     [SerializeField] private bool isSwitchingIllust;
     [SerializeField] bool isGoingToNewScene = false;
     [SerializeField] string newSceneName;
+    [SerializeField] string interSceneText;
     
     float switchingIllustTimeoutTimer;
 
@@ -163,6 +164,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         else if (dialogueLine.data.action == LineAction.GoToScene)
         {
             newSceneName = dialogueLine.data.sceneDestinationName;
+            interSceneText = dialogueLine.data.interSceneText;
             DataPersistenceManager.instance.SaveGame();
             SceneManager.LoadSceneAsync("Inter-scene");
         }
@@ -306,6 +308,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             data.npcBeingInteracted = null;
             data.isInDialogue = false;
             data.hasPendingTaskListUpdate = false;
+            data.interSceneText = string.Empty;
 
             data.isGoingToNewScene = false;
             data.newSceneName = this.newSceneName;
@@ -317,6 +320,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
             data.lastDialogueIndex = this.currentDialogueIndex;
             data.isInDialogue = true;
             data.hasPendingTaskListUpdate = this.hasPendingTaskListUpdate;
+            data.interSceneText = this.interSceneText;
 
             data.isGoingToNewScene = this.isGoingToNewScene;
             data.newSceneName = this.newSceneName;
