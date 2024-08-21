@@ -54,6 +54,7 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.isFirstTimeInScene = data.isFirstTimeInScene;
+        this.hasFirstTimeSceneAction = data.hasFirstTimeSceneAction;
 
         if (isFirstTimeInScene && hasFirstTimeSceneAction)
         {
@@ -72,5 +73,6 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     public void SaveData(GameData data)
     {
         data.isFirstTimeInScene = this.isFirstTimeInScene;
+        data.hasFirstTimeSceneAction = this.hasFirstTimeSceneAction;
     }
 }
