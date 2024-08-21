@@ -61,6 +61,12 @@ public class DialogueTrigger : MonoBehaviour
 
         if (!resumingLastDialogue)
         {
+            if (gameObject.GetComponent<MapManager>() != null)
+            {
+                DialogueManager.instance.StartDialogue(dialogues[dialogueIndex], gameObject, dialogueIndex, startLine);
+                return;
+            }
+
             // Triggers if this is the dialogue of the current task
                 // Checks if current task object is this object
             if (TasksManager.instance.GetCurrentTask() != null) // Exception
