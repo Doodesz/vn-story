@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MAIN/Scenes/Inter-scene.unity
     guid: 9ae6e3f1382d3eb4988b635b55b0ac82
+  - enabled: 1
+    path: Assets/_MAIN/Scenes/test 2.unity
+    guid: 6cf67232bb7d0b14fbe11eac5b35bfb3
   m_configObjects: {}

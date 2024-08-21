@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorDestination: 
   playerChangingMap: 0
+  isGamePaused: 0
   doorPos: {x: 0, y: 0, z: 0}
   dataPersistenceManager: {fileID: 0}
 --- !u!4 &24420282
@@ -555,6 +556,7 @@ MonoBehaviour:
     npcBeingInteracted: 
     sceneName: Prologue
     currentArea: 0
+    interSceneText: 
     taskItemsList: []
     taskObjectsDictionary:
       keys: []
@@ -1995,6 +1997,10 @@ PrefabInstance:
     - target: {fileID: 5515115417565691287, guid: 199ac8f1883da7748baa1487a1f8f477, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6825944405093042880, guid: 199ac8f1883da7748baa1487a1f8f477, type: 3}
+      propertyPath: chapterName
+      value: test 2
       objectReference: {fileID: 0}
     - target: {fileID: 8885531687333274202, guid: 199ac8f1883da7748baa1487a1f8f477, type: 3}
       propertyPath: m_Name
