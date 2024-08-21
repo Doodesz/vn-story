@@ -548,6 +548,7 @@ MonoBehaviour:
     playerInControl: 1
     isInDialogue: 0
     isFirstTimeInScene: 1
+    hasFirstTimeSceneAction: 1
     hasPendingTaskListUpdate: 0
     objectiveIndex: 0
     lastDialogueIndex: 0

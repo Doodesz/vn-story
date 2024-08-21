@@ -11,7 +11,7 @@ public class GameData
     public bool playerInControl;
     public bool isInDialogue;
     public bool isFirstTimeInScene;
-    public bool hasFirstTimeSceneAction;
+    //public bool hasFirstTimeSceneAction;
     public bool hasPendingTaskListUpdate;
     public int objectiveIndex;
     public int lastDialogueIndex;
@@ -36,7 +36,7 @@ public class GameData
         playerInControl = true;
         isInDialogue = false;
         isFirstTimeInScene = true;
-        hasFirstTimeSceneAction = true;
+        //hasFirstTimeSceneAction = false;
         objectiveIndex = 0;
         lastDialogueIndex = 0;
         lastDialogueLineIndex = 0;

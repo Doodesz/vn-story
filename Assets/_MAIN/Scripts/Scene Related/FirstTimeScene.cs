@@ -12,6 +12,8 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     public bool isFirstTimeInScene = true;
     public bool hasFirstTimeSceneAction = false;
 
+    [SerializeField] private bool hasPendingFirstTimeSceneAction = false;
+
     public static FirstTimeScene instance;
 
     private void Awake()
@@ -21,25 +23,31 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-
+        isFirstTimeInScene = false;
     }
 
     private void Update()
     {
-        if (hasFirstTimeSceneAction 
-            && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ) )
+        if (hasPendingFirstTimeSceneAction
+            && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) ))
         {
-            isFirstTimeInScene = false;
-            hasFirstTimeSceneAction = false;
-            GetComponent<DialogueTrigger>().TriggerDialogue();
-
-            StartCoroutine(HideFirstTimeSceneScreen());
+            InitializeFirstTimeSceneBehaviour();
+            //DataPersistenceManager.instance.SaveGame();
         }
     }
 
     public void InitializeFirstTimeSceneBehaviour()
     {
+        hasPendingFirstTimeSceneAction = false;
         playerController.isPlayerInControl = false;
+        isFirstTimeInScene = false;
+        hasFirstTimeSceneAction = false;
+
+        GetComponent<DialogueTrigger>().TriggerDialogue();
+
+        StartCoroutine(HideFirstTimeSceneScreen());
+
+        DataPersistenceManager.instance.SaveGame();
     }
 
     private IEnumerator HideFirstTimeSceneScreen()
@@ -54,25 +62,22 @@ public class FirstTimeScene : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.isFirstTimeInScene = data.isFirstTimeInScene;
-        this.hasFirstTimeSceneAction = data.hasFirstTimeSceneAction;
+        //this.hasFirstTimeSceneAction = data.hasFirstTimeSceneAction;
 
         if (isFirstTimeInScene && hasFirstTimeSceneAction)
         {
             firstTimeSceneScreen.SetActive(true);
-            data.playerInControl = false;
-            InitializeFirstTimeSceneBehaviour();
+            hasPendingFirstTimeSceneAction = true;
         }
-        else if (!hasFirstTimeSceneAction)
+        else
         {
             firstTimeSceneScreen.SetActive(false);
-            //this.enabled = false;
-            data.playerInControl = true;
         }
     }
 
     public void SaveData(GameData data)
     {
         data.isFirstTimeInScene = this.isFirstTimeInScene;
-        data.hasFirstTimeSceneAction = this.hasFirstTimeSceneAction;
+        //data.hasFirstTimeSceneAction = this.hasFirstTimeSceneAction;
     }
 }
