@@ -127,6 +127,7 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     public void DisplayNextDialogueLine()
     {
+        // Avoids bug when illustration is currently changing
         if (!(illustrationAnimator.GetCurrentAnimatorStateInfo(0).IsName("visible") ||
             illustrationAnimator.GetCurrentAnimatorStateInfo(0).IsName("idle")))
             return;
@@ -169,9 +170,18 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
         {
             newSceneName = dialogueLine.data.sceneDestinationName;
             interSceneText = dialogueLine.data.interSceneText;
-            DataPersistenceManager.instance.SaveGame();
-            SceneManager.LoadSceneAsync("Inter-scene");
+
+            StartCoroutine(ChangeScene());
         }
+    }
+
+    IEnumerator ChangeScene()
+    {
+        ScreenTransition.instance.PlayTransitionOut();
+        isTyping = true;
+        yield return new WaitForSeconds(1f);
+        DataPersistenceManager.instance.SaveGame();
+        SceneManager.LoadSceneAsync("Inter-scene");
     }
 
     private void ChangeIllustration(Sprite spriteIllustration) 
