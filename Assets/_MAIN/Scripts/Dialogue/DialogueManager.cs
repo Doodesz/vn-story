@@ -127,6 +127,10 @@ public class DialogueManager : MonoBehaviour, IDataPersistence
 
     public void DisplayNextDialogueLine()
     {
+        if (!(illustrationAnimator.GetCurrentAnimatorStateInfo(0).IsName("visible") ||
+            illustrationAnimator.GetCurrentAnimatorStateInfo(0).IsName("idle")))
+            return;
+
         if (lines.Count == 0)
         {
             EndDialogue();
